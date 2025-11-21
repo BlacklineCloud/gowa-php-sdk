@@ -19,10 +19,10 @@
 - [x] Release automation: release-drafter or semantic-release workflow; Packagist auto-update hook
 
 ## 2. Core Architecture & Abstractions
-- [ ] Define `Contracts\Http\HttpTransportInterface` (PSR-7/18 based) and `Contracts\Http\MiddlewareInterface`
+- [x] Define `Contracts\Http\HttpTransportInterface` (PSR-7/18 based) and `Contracts\Http\MiddlewareInterface`
 - [ ] Implement default transport adapter (e.g., HTTPlug + discovery) with retry/backoff and idempotency token support
-- [ ] Introduce `ClientConfig` (immutable): baseUrl, auth, timeouts, serialization options, retry policy
-- [ ] Error model: rich domain exceptions hierarchy (transport, auth, validation, rate-limit, server)
+- [x] Introduce `ClientConfig` (immutable): baseUrl, auth, timeouts, serialization options, retry policy
+- [x] Error model: rich domain exceptions hierarchy (transport, auth, validation, rate-limit, server)
 - [ ] Logging hooks (PSR-3) + correlation IDs
 
 ## 3. Domain Model & Serialization
