@@ -33,6 +33,20 @@ final class ArrayReader
         return $value;
     }
 
+    public function optionalInt(string $key): ?int
+    {
+        if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
+            return null;
+        }
+
+        $value = $this->data[$key];
+        if (!\is_int($value)) {
+            throw new ValidationException($this->err($key, 'int|null'));
+        }
+
+        return $value;
+    }
+
     public function requireBool(string $key): bool
     {
         $value = $this->requireKey($key);
