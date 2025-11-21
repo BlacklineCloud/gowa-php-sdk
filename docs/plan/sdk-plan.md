@@ -28,7 +28,7 @@
 ## 3. Domain Model & Serialization
 - [x] Value Objects: `Jid`, `MessageId`, `Timestamp`, `PhoneNumber`, `MediaPath`, `WebhookSignature`
 - [x] Enums: message ack status, receipt type, group action type, media mime types, presence states
-- [ ] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; initial DTOs for LoginResponse, SendResponse, DevicesResponse, PrivacyResponse)
+- [ ] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; DTOs for Login/Send/Devices/Privacy/UserInfo/Avatar/BusinessProfile)
 - [x] Serializer layer: JSON (fail-fast), request builders, response hydrators; map unknown fields conservatively
 - [x] Validation: input guards (Design by Contract) with descriptive exceptions
 - [ ] Self-review checklist applied to models & serializer (pending pass)
