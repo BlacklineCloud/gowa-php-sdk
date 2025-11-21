@@ -1,0 +1,16 @@
+{
+  "source": "https://github.com/aldinokemal/go-whatsapp-web-multidevice",
+  "retrieved_at": "2025-11-21",
+  "artifacts": {
+    "openapi": {
+      "file": ".docs/official/openapi.yaml",
+      "version": "6.12.0",
+      "sha256": "dfb3fa2f672ce9faccb445b6bbc3ae6ec88f1de377a2b218a8fa3345453c5ec6"
+    },
+    "webhook_payload": {
+      "file": ".docs/official/webhook-payload.md",
+      "version": "unknown",
+      "sha256": "a8926f205886a9cd23726a693e081ede940862469c157e0957152c53d1a1ca20"
+    }
+  }
+}

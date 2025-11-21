@@ -1,0 +1,8 @@
+parameters:
+  level: max
+  paths:
+    - src
+    - tests
+  checkMissingIterableValueType: true
+  reportUnmatchedIgnoredErrors: true
+  tmpDir: var/cache/phpstan
