@@ -20,10 +20,10 @@
 
 ## 2. Core Architecture & Abstractions
 - [x] Define `Contracts\Http\HttpTransportInterface` (PSR-7/18 based) and `Contracts\Http\MiddlewareInterface`
-- [ ] Implement default transport adapter (e.g., HTTPlug + discovery) with retry/backoff and idempotency token support
+- [x] Implement default transport adapter (e.g., HTTPlug + discovery) with retry/backoff and idempotency token support
 - [x] Introduce `ClientConfig` (immutable): baseUrl, auth, timeouts, serialization options, retry policy
 - [x] Error model: rich domain exceptions hierarchy (transport, auth, validation, rate-limit, server)
-- [ ] Logging hooks (PSR-3) + correlation IDs
+- [x] Logging hooks (PSR-3) + correlation IDs
 
 ## 3. Domain Model & Serialization
 - [ ] Value Objects: `Jid`, `MessageId`, `Timestamp`, `PhoneNumber`, `MediaPath`, `WebhookSignature`
