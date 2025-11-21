@@ -56,6 +56,21 @@ final class ArrayReader
         return $value;
     }
 
+    /** @return array<string,mixed>|null */
+    public function optionalObject(string $key): ?array
+    {
+        if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
+            return null;
+        }
+
+        $value = $this->data[$key];
+        if (!\is_array($value)) {
+            throw new ValidationException($this->err($key, 'object|null'));
+        }
+
+        return $value;
+    }
+
     public function optionalBool(string $key): ?bool
     {
         if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
