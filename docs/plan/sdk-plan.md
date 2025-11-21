@@ -28,14 +28,14 @@
 ## 3. Domain Model & Serialization
 - [x] Value Objects: `Jid`, `MessageId`, `Timestamp`, `PhoneNumber`, `MediaPath`, `WebhookSignature`
 - [x] Enums: message ack status, receipt type, group action type, media mime types, presence states
-- [ ] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; DTOs for Login/Send/Devices/Privacy/UserInfo/Avatar/BusinessProfile/GroupInfoFromLink/GroupParticipants/ManageParticipant)
+- [ ] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; DTOs for Login/Send/Devices/Privacy/UserInfo/Avatar/BusinessProfile/GroupInfoFromLink/GroupParticipants/ManageParticipant/Chat list & messages/Chat actions/Newsletter/Generic/Contacts/Group list/Participant requests/Message actions)
 - [x] Serializer layer: JSON (fail-fast), request builders, response hydrators; map unknown fields conservatively
 - [x] Validation: input guards (Design by Contract) with descriptive exceptions
 - [ ] Self-review checklist applied to models & serializer (pending pass)
 
 ## 4. Service Clients (by API tag)
-- [ ] `AppClient`: login (QR/code), logout, reconnect, devices
-- [ ] `UserClient`: info, avatar, pushname, privacy, my groups/contacts/newsletters, business profile
+- [x] `AppClient`: login (QR/code), logout, reconnect, devices
+- [x] `UserClient`: info, avatar, pushname, privacy, my groups/contacts/newsletters, business profile
 - [ ] `SendClient`: text, image, audio, file, sticker, video, contact, link, location, poll, presence/chat presence
 - [ ] `MessageClient`: revoke, delete, reaction, update, read, star/unstar
 - [ ] `ChatClient`: list chats, chat messages, labels, pin

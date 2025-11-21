@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace BlacklineCloud\SDK\GowaPHP\Tests\Client;
+
+use BlacklineCloud\SDK\GowaPHP\Client\UserClient;
+use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\AvatarResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\BusinessProfileResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\MyContactsResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\PrivacyResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\UserCheckResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\UserInfoResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Tests\Support\FakeTransport;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7\Response;
+use PHPUnit\Framework\TestCase;
+
+final class UserClientTest extends TestCase
+{
+    public function testInfoBuildsRequest(): void
+    {
+        $psr17 = new Psr17Factory();
+        $body = json_encode([
+            'code' => 'SUCCESS',
+            'message' => 'Success get info',
+            'results' => [
+                'pushname' => 'Alice',
+                'verified' => 1,
+                'lid' => null,
+                'business_name' => null,
+            ],
+        ], JSON_THROW_ON_ERROR);
+        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $transport = new FakeTransport($response);
+        $config = new ClientConfig('https://api.example.test', 'u', 'p');
+
+        $client = new UserClient(
+            $config,
+            $transport,
+            $psr17,
+            $psr17,
+            new UserInfoResponseHydrator(),
+            new AvatarResponseHydrator(),
+            new PrivacyResponseHydrator(),
+            new MyContactsResponseHydrator(),
+            new BusinessProfileResponseHydrator(),
+            new UserCheckResponseHydrator(),
+        );
+
+        $dto = $client->info();
+
+        self::assertSame('Alice', $dto->user->pushName);
+        self::assertSame('https://api.example.test/user/info', (string) $transport->lastRequest?->getUri());
+    }
+}
