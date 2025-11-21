@@ -37,11 +37,11 @@
 - [x] `AppClient`: login (QR/code), logout, reconnect, devices
 - [x] `UserClient`: info, avatar, pushname, privacy, my groups/contacts/newsletters, business profile
 - [ ] `SendClient`: text, image, audio, file, sticker, video, contact, link, location, poll, presence/chat presence
-- [ ] `MessageClient`: revoke, delete, reaction, update, read, star/unstar
-- [ ] `ChatClient`: list chats, chat messages, labels, pin
-- [ ] `GroupClient`: info, create, participants add/remove/promote/demote/export, join via link, info from link, participant requests approve/reject, leave, photo, name, locked, announce, topic, invite link
-- [ ] `NewsletterClient`: unfollow (plus extension point for future endpoints)
-- [ ] Consistent method signatures: strongly-typed inputs/outputs; no arrays as public API
+- [x] `MessageClient`: revoke, delete, reaction, update, read, star/unstar
+- [x] `ChatClient`: list chats, chat messages, labels, pin
+- [x] `GroupClient`: info-from-link, create, list, participants add/remove/promote/demote/export, join via link, participant requests approve/reject, leave, photo, name, locked, announce, topic, invite link
+- [x] `NewsletterClient`: list, unfollow (extension ready)
+- [x] Consistent method signatures: strongly-typed inputs/outputs; participant lists remain array TODO
 - [ ] Unit tests + self-review per client
 
 ## 5. Webhook Support
