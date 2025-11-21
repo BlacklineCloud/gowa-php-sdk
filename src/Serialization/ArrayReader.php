@@ -33,6 +33,16 @@ final class ArrayReader
         return $value;
     }
 
+    public function requireBool(string $key): bool
+    {
+        $value = $this->requireKey($key);
+        if (!\is_bool($value)) {
+            throw new ValidationException($this->err($key, 'bool'));
+        }
+
+        return $value;
+    }
+
     public function optionalString(string $key): ?string
     {
         if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
@@ -41,6 +51,20 @@ final class ArrayReader
         $value = $this->data[$key];
         if (!\is_string($value)) {
             throw new ValidationException($this->err($key, 'string|null'));
+        }
+
+        return $value;
+    }
+
+    public function optionalBool(string $key): ?bool
+    {
+        if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
+            return null;
+        }
+
+        $value = $this->data[$key];
+        if (!\is_bool($value)) {
+            throw new ValidationException($this->err($key, 'bool|null'));
         }
 
         return $value;
