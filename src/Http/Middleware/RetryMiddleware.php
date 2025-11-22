@@ -6,7 +6,9 @@ namespace BlacklineCloud\SDK\GowaPHP\Http\Middleware;
 
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Contracts\Http\MiddlewareInterface;
+use BlacklineCloud\SDK\GowaPHP\Exception\AuthenticationException;
 use BlacklineCloud\SDK\GowaPHP\Exception\RateLimitException;
+use BlacklineCloud\SDK\GowaPHP\Exception\ServerException;
 use BlacklineCloud\SDK\GowaPHP\Exception\TransportException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -36,6 +38,9 @@ final class RetryMiddleware implements MiddlewareInterface
                 }
 
                 return $response;
+            } catch (AuthenticationException $e) {
+                // Auth errors are not retryable
+                throw $e;
             } catch (RateLimitException $e) {
                 if ($attempt >= $this->config->maxRetries) {
                     throw $e;
@@ -44,21 +49,31 @@ final class RetryMiddleware implements MiddlewareInterface
                 $attempt++;
                 $delay = $this->retryAfterMs($e->retryAfterSeconds) ?? $this->nextDelayMs($attempt);
                 continue;
-            } catch (\Throwable $e) {
+            } catch (ServerException $e) {
+                if ($this->isRetryableStatus($e->statusCode ?? 0) && $attempt < $this->config->maxRetries) {
+                    $delay = $this->nextDelayMs(++$attempt);
+                    continue;
+                }
+
+                throw $e;
+            } catch (TransportException $e) {
                 if ($attempt >= $this->config->maxRetries) {
-                    throw new TransportException($e->getMessage(), previous: $e);
+                    throw $e;
                 }
 
                 $attempt++;
                 $delay = $this->nextDelayMs($attempt);
                 continue;
+            } catch (\Throwable $e) {
+                // Unknown exception type, do not obscure cause
+                throw $e;
             }
         }
     }
 
     private function isRetryableStatus(int $status): bool
     {
-        return \in_array($status, [429, 502, 503, 504], true);
+        return \in_array($status, [500, 502, 503, 504], true);
     }
 
     private function nextDelayMs(int $attempt): int

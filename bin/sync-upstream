@@ -5,6 +5,8 @@ UPSTREAM_REPO="https://raw.githubusercontent.com/aldinokemal/go-whatsapp-web-mul
 DEST_DIR=".docs/official"
 MANIFEST="upstream/manifest.json"
 
+[[ -f "$MANIFEST" ]] || echo '{}' > "$MANIFEST"
+
 fetch() {
   local path="$1" target="$2"
   echo "Fetching $path -> $target" >&2
@@ -18,14 +20,23 @@ declare -A FILES=(
 
 mkdir -p "$DEST_DIR" upstream
 
+update_manifest() {
+  local key="$1" file="$2" sha="$3"
+  jq --arg key "$key" --arg file "$file" --arg sha "$sha" --arg now "$(date -Iseconds)" '
+    .artifacts[$key].file = $file |
+    .artifacts[$key].sha256 = $sha |
+    .artifacts[$key].updated_at = $now
+  ' "$MANIFEST" > "$MANIFEST.tmp" && mv "$MANIFEST.tmp" "$MANIFEST"
+}
+
 for localName in "${!FILES[@]}"; do
   remotePath="${FILES[$localName]}"
   fetch "$remotePath" "$DEST_DIR/$localName"
   sha=$(shasum -a 256 "$DEST_DIR/$localName" | awk '{print $1}')
-  jq --arg file "$DEST_DIR/$localName" --arg sha "$sha" --arg now "$(date -Iseconds)" \
-    '.artifacts[$file] = {sha256:$sha, updated_at:$now}' \
-    "$MANIFEST" > "$MANIFEST.tmp" || true
-  mv "$MANIFEST.tmp" "$MANIFEST"
+  case "$localName" in
+    openapi.yaml) update_manifest "openapi" "$DEST_DIR/$localName" "$sha" ;;
+    webhook-payload.md) update_manifest "webhook_payload" "$DEST_DIR/$localName" "$sha" ;;
+  esac
 done
 
 echo "Upstream files synced and manifest updated at $MANIFEST"

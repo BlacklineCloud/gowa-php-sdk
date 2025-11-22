@@ -35,7 +35,7 @@ final class ChatMessagesResponseHydrator implements HydratorInterface
                 mediaType: $r->optionalString('media_type'),
                 filename: $r->optionalString('filename'),
                 url: $r->optionalString('url'),
-                fileLength: $r->optionalString('file_length') ? (int) $r->optionalString('file_length') : null,
+                fileLength: $r->optionalInt('file_length'),
                 createdAt: $this->optionalDate($r->optionalString('created_at')),
                 updatedAt: $this->optionalDate($r->optionalString('updated_at')),
             );

@@ -12,10 +12,14 @@ final class ClientConfigBuilder
     /** @param array<string,string> $input */
     public static function fromArray(array $input): ClientConfig
     {
+        $baseUri = self::requireStringKey($input, 'base_uri');
+        $username = self::requireStringKey($input, 'username');
+        $password = self::requireStringKey($input, 'password');
+
         return new ClientConfig(
-            baseUri: $input['base_uri'],
-            username: $input['username'],
-            password: $input['password'],
+            baseUri: $baseUri,
+            username: $username,
+            password: $password,
             requestTimeoutMs: isset($input['request_timeout_ms']) ? (int) $input['request_timeout_ms'] : 10000,
             connectTimeoutMs: isset($input['connect_timeout_ms']) ? (int) $input['connect_timeout_ms'] : 5000,
             maxRetries: isset($input['max_retries']) ? (int) $input['max_retries'] : 2,
@@ -40,5 +44,22 @@ final class ClientConfigBuilder
             'user_agent' => getenv('GOWA_USER_AGENT') ?: 'gowa-php-sdk',
             'base_path' => getenv('GOWA_BASE_PATH') ?: null,
         ]);
+    }
+
+    /**
+     * @param array<string,string> $input
+     */
+    private static function requireStringKey(array $input, string $key): string
+    {
+        if (!array_key_exists($key, $input)) {
+            throw new \InvalidArgumentException("Missing required config key {$key}");
+        }
+
+        $value = $input[$key];
+        if ($value === '') {
+            throw new \InvalidArgumentException("Config key {$key} must not be empty");
+        }
+
+        return (string) $value;
     }
 }
