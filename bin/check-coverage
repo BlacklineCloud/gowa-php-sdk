@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+if ($argc < 3) {
+    fwrite(STDERR, "Usage: check-coverage <clover.xml> <threshold>\n");
+    exit(1);
+}
+$file = $argv[1];
+$threshold = (float) $argv[2];
+
+if (!file_exists($file)) {
+    fwrite(STDERR, "Coverage file not found: {$file}\n");
+    exit(getenv('ALLOW_NO_COVERAGE') ? 0 : 1);
+}
+
+$xml = simplexml_load_file($file);
+if ($xml === false) {
+    fwrite(STDERR, "Cannot parse coverage file: {$file}\n");
+    exit(1);
+}
+$total = $xml->xpath('/coverage/project/metrics');
+if (!$total) {
+    fwrite(STDERR, "Coverage metrics not found\n");
+    exit(1);
+}
+$metrics = $total[0];
+$covered = (float) $metrics['coveredstatements'];
+$statements = (float) $metrics['statements'];
+$percent = $statements > 0 ? ($covered / $statements) * 100 : 0.0;
+
+printf("Total coverage: %.2f%% (threshold %.2f%%)\n", $percent, $threshold);
+
+if ($percent + 1e-6 < $threshold) {
+    fwrite(STDERR, "Coverage below threshold\n");
+    exit(1);
+}
+
+exit(0);

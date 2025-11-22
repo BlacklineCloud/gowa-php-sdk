@@ -40,6 +40,8 @@ jobs:
         run: composer psalm --output-format=github
       - name: Tests
         run: composer test -- --coverage-clover=build/logs/clover.xml
+      - name: Coverage threshold
+        run: composer coverage
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:

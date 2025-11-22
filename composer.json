@@ -33,7 +33,8 @@
     "lint": "php-cs-fixer fix --dry-run --diff",
     "fix": "php-cs-fixer fix",
     "stan": "phpstan analyse",
-    "psalm": "psalm"
+    "psalm": "psalm",
+    "coverage": "bin/check-coverage build/logs/clover.xml 90"
   },
   "config": {
     "preferred-install": "dist",

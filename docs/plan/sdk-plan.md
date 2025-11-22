@@ -68,7 +68,7 @@
 - [x] Contract tests: golden files for request/response serialization vs OpenAPI examples (initial fixture for send text)
 - [x] Integration tests: HTTP mock server (e.g., `php-http/mock-client`); ensure retry/idempotency behavior (initial retry test in place)
 - [x] Static analysis gates: PHPStan lvl max, Psalm lvl 1; 100% type coverage goal
-- [ ] Code coverage target >= 90%, track via CI badge
+- [x] Code coverage target >= 90%, track via CI badge (enforced by bin/check-coverage; badge pending)
 
 ## 9. Documentation & DX
 - [x] README: installation, quick start, minimal send example, webhook verification snippet, changelog link
