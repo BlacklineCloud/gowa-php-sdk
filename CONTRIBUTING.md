@@ -34,3 +34,9 @@ Please email security@blackline.cloud and do not open a public issue.
 - We use semantic versioning.
 - Draft releases via Release Drafter; tags trigger packaging and Packagist updates.
 - Breaking changes require a major version bump and changelog entry.
+
+## Upgrade Workflow
+- Run `bin/diff-openapi` to detect upstream spec drift.
+- If drift is reported, run `bin/sync-upstream` (requires network) to refresh `.docs/official/*` and update `upstream/manifest.json`.
+- Regenerate or adjust DTOs/hydrators if needed, update plan checkboxes, and bump CHANGELOG.
+- Open a PR with the updated manifest and regenerated code.

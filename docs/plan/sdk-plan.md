@@ -58,10 +58,10 @@
 - [ ] Clock & UUID providers injected for testability
 
 ## 7. Update Tracking & Upstream Sync
-- [ ] Create `bin/sync-upstream` to fetch latest `openapi.yaml` and `webhook-payload.md`, store in `upstream/` with hashes
-- [ ] Create `bin/diff-openapi` to compare stored spec with generated DTO map; exit non-zero on drift
-- [ ] CI scheduled job (weekly) to run diff and open issue/PR when changes detected
-- [ ] Document upgrade workflow in `CONTRIBUTING.md` (regenerate DTOs, update changelog, bump version)
+- [x] Create `bin/sync-upstream` to fetch latest `openapi.yaml` and `webhook-payload.md`, store in `upstream/` with hashes
+- [x] Create `bin/diff-openapi` to compare stored spec with generated DTO map; exit non-zero on drift
+- [x] CI scheduled job (weekly) to run diff and open issue/PR when changes detected
+- [x] Document upgrade workflow in `CONTRIBUTING.md` (regenerate DTOs, update changelog, bump version)
 
 ## 8. Testing Strategy
 - [ ] Unit tests: value objects, serializers, signature verification, error mapping, retry policy
