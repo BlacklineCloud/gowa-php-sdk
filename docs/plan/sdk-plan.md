@@ -82,10 +82,10 @@
 - [x] Release workflow: tag -> changelog -> GitHub release -> Packagist sync (workflow added; Packagist token optional)
 - [x] Deprecation policy and compatibility notes (breaking change window)
 - [x] Support matrix: PHP versions, HTTP clients
-- [ ] Ongoing self-review: ensure SOLID, DRY, KISS, YAGNI, PSR compliance before each release
+- [x] Ongoing self-review: ensure SOLID, DRY, KISS, YAGNI, PSR compliance before each release
 
 ## Definition of Done
-- [ ] All plan tasks completed
-- [ ] Self-review checklist satisfied for every component
-- [ ] CI green (lint, static analysis, tests, coverage)
-- [ ] Docs updated (README + API + changelog)
+- [x] All plan tasks completed
+- [x] Self-review checklist satisfied for every component
+- [x] CI green (lint, static analysis, tests, coverage) *coverage driver warning locally; enforced via threshold*
+- [x] Docs updated (README + API + changelog)
