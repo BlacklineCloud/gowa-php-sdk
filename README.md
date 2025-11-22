@@ -16,10 +16,8 @@ composer require blacklinecloud/gowa-php-sdk
 use BlacklineCloud\SDK\GowaPHP\Client\AppClient;
 use BlacklineCloud\SDK\GowaPHP\Client\SendClient;
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfigBuilder;
-use BlacklineCloud\SDK\GowaPHP\Http\Psr18Transport;
-use BlacklineCloud\SDK\GowaPHP\Http\Middleware\{AuthMiddleware,CorrelationIdMiddleware,IdempotencyMiddleware,LoggingMiddleware,RetryMiddleware};
-use BlacklineCloud\SDK\GowaPHP\Support\{NativeUuidGenerator,SystemClock};
-use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SendResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Http\ClientFactory;
+use BlacklineCloud\SDK\GowaPHP\Support\NativeUuidGenerator;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\HttpClient\CurlClient;
 use Psr\Log\NullLogger;
@@ -30,21 +28,16 @@ $config = ClientConfigBuilder::fromArray([
     'password' => 'admin',
 ]);
 
-$psr17 = new Psr17Factory();
-$uuid = new NativeUuidGenerator();
-$transport = new Psr18Transport(
-    new CurlClient($psr17),
-    $config,
-    new NullLogger(),
-    new AuthMiddleware($config),
-    new CorrelationIdMiddleware($uuid),
-    new IdempotencyMiddleware($uuid),
-    new LoggingMiddleware(new NullLogger()),
-    new RetryMiddleware($config),
+$factory = new ClientFactory(
+    requestFactory: $psr17 = new Psr17Factory(),
+    streamFactory: $psr17,
+    psr18: new CurlClient($psr17),
+    logger: new NullLogger(),
+    uuid: new NativeUuidGenerator(),
 );
 
-$app = new AppClient($config, $transport, $psr17, $psr17, new \BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\LoginResponseHydrator(), new \BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\LoginWithCodeResponseHydrator(), new \BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\DevicesResponseHydrator(), new \BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GenericResponseHydrator());
-$send = new SendClient($config, $transport, $psr17, $psr17, new SendResponseHydrator());
+$app  = $factory->createAppClient($config);
+$send = $factory->createSendClient($config);
 
 // Login (QR)
 $app->login();
