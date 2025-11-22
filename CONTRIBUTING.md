@@ -40,3 +40,13 @@ Please email security@blackline.cloud and do not open a public issue.
 - If drift is reported, run `bin/sync-upstream` (requires network) to refresh `.docs/official/*` and update `upstream/manifest.json`.
 - Regenerate or adjust DTOs/hydrators if needed, update plan checkboxes, and bump CHANGELOG.
 - Open a PR with the updated manifest and regenerated code.
+
+## Test Matrix
+- Run `composer lint && composer stan && composer psalm && composer test` before PRs.
+- Contract tests live in `tests/Contract` (golden fixtures) and should be updated alongside API changes.
+- Integration tests (TODO) will use mock HTTP to validate retry/idempotency behavior.
+
+## Self-Review for Clients & Webhooks
+- Ensure no public arrays in method signatures; prefer typed DTOs/value objects and variadics.
+- Confirm webhook signatures are validated before deserialization.
+- Keep hydrators fail-fast with clear validation messages.
