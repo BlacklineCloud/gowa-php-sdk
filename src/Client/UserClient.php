@@ -19,6 +19,7 @@ use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\MyContactsResponseHydrator
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\PrivacyResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\UserCheckResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\UserInfoResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -46,7 +47,7 @@ final class UserClient extends ApiClient
 
     public function avatar(string $jid): AvatarResponse
     {
-        return $this->avatarHydrator->hydrate($this->get('/user/avatar', ['jid' => $jid]));
+        return $this->avatarHydrator->hydrate($this->get('/user/avatar', ['jid' => InputValidator::jid($jid)]));
     }
 
     public function privacy(): PrivacyResponse
@@ -61,11 +62,11 @@ final class UserClient extends ApiClient
 
     public function businessProfile(string $jid): BusinessProfileResponse
     {
-        return $this->businessProfileHydrator->hydrate($this->get('/user/business-profile', ['jid' => $jid]));
+        return $this->businessProfileHydrator->hydrate($this->get('/user/business-profile', ['jid' => InputValidator::jid($jid)]));
     }
 
     public function check(string $phone): UserCheckResponse
     {
-        return $this->userCheckHydrator->hydrate($this->get('/user/check', ['phone' => $phone]));
+        return $this->userCheckHydrator->hydrate($this->get('/user/check', ['phone' => InputValidator::phone($phone)]));
     }
 }

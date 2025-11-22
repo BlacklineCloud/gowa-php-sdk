@@ -28,7 +28,7 @@ final class SendClientTest extends TestCase
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
         $client    = $this->client($transport, $psr17);
 
-        $dto = $client->text('jid@s.whatsapp.net', 'hello');
+        $dto = $client->text('628111111111@s.whatsapp.net', 'hello');
 
         self::assertSame('abc', $dto->messageId);
         self::assertSame('https://api.example.test/send/message', (string) $transport->lastRequest?->getUri());
@@ -48,7 +48,7 @@ final class SendClientTest extends TestCase
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
         $client    = $this->client($transport, $psr17);
 
-        $client->poll('jid@s.whatsapp.net', 'Choose', 'one', 'two');
+        $client->poll('628111111111@s.whatsapp.net', 'Choose', 'one', 'two');
 
         $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
         self::assertIsArray($payload);
@@ -69,7 +69,7 @@ final class SendClientTest extends TestCase
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
         $client    = $this->client($transport, $psr17);
 
-        $client->chatPresence('jid@s.whatsapp.net', \BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState::Composing);
+        $client->chatPresence('628111111111@s.whatsapp.net', \BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState::Composing);
 
         $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
         self::assertIsArray($payload);

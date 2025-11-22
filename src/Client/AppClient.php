@@ -15,6 +15,7 @@ use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\DevicesResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GenericResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\LoginResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\LoginWithCodeResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -40,7 +41,7 @@ final class AppClient extends ApiClient
 
     public function loginWithCode(string $phoneNumber): LoginWithCodeResponse
     {
-        return $this->loginCodeHydrator->hydrate($this->get('/app/login-with-code', ['phone' => $phoneNumber]));
+        return $this->loginCodeHydrator->hydrate($this->get('/app/login-with-code', ['phone' => InputValidator::phone($phoneNumber)]));
     }
 
     public function logout(): GenericResponse

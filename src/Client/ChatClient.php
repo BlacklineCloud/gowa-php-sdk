@@ -15,6 +15,7 @@ use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\ChatListResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\ChatMessagesResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\LabelChatResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\PinChatResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -45,7 +46,9 @@ final class ChatClient extends ApiClient
 
     public function messages(string $chatJid, int $limit = 50, int $offset = 0): ChatMessagesResponse
     {
-        return $this->messagesHydrator->hydrate($this->get("/chat/{$chatJid}/messages", [
+        $jid = InputValidator::jid($chatJid);
+
+        return $this->messagesHydrator->hydrate($this->get("/chat/{$jid}/messages", [
             'limit'  => $limit,
             'offset' => $offset,
         ]));
@@ -53,11 +56,15 @@ final class ChatClient extends ApiClient
 
     public function label(string $chatJid, string $labelId): LabelChatResponse
     {
-        return $this->labelHydrator->hydrate($this->post("/chat/{$chatJid}/label", ['label_id' => $labelId]));
+        $jid = InputValidator::jid($chatJid);
+
+        return $this->labelHydrator->hydrate($this->post("/chat/{$jid}/label", ['label_id' => $labelId]));
     }
 
     public function pin(string $chatJid, bool $pinned = true): PinChatResponse
     {
-        return $this->pinHydrator->hydrate($this->post("/chat/{$chatJid}/pin", ['pinned' => $pinned]));
+        $jid = InputValidator::jid($chatJid);
+
+        return $this->pinHydrator->hydrate($this->post("/chat/{$jid}/pin", ['pinned' => $pinned]));
     }
 }

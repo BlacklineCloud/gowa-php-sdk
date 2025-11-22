@@ -26,7 +26,7 @@ final class ChatClientTest extends TestCase
             'results' => [
                 'data' => [
                     [
-                        'jid'                  => 'jid@s.whatsapp.net',
+                        'jid'                  => '628111111111@s.whatsapp.net',
                         'name'                 => 'Chat',
                         'last_message_time'    => '2024-01-15T10:30:00Z',
                         'ephemeral_expiration' => 0,

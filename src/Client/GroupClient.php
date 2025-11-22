@@ -25,6 +25,7 @@ use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupParticipantRequestsRe
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupParticipantsResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\ManageParticipantResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SetGroupPhotoResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -50,9 +51,11 @@ final class GroupClient extends ApiClient
 
     public function create(string $subject, string ...$participants): CreateGroupResponse
     {
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->createHydrator->hydrate($this->post('/group', [
             'subject'      => $subject,
-            'participants' => $participants,
+            'participants' => $validated,
         ]));
     }
 
@@ -63,38 +66,52 @@ final class GroupClient extends ApiClient
 
     public function participants(string $groupId): GroupParticipantsResponse
     {
-        return $this->participantsHydrator->hydrate($this->get('/group/participants', ['group_id' => $groupId]));
+        $gid = InputValidator::jid($groupId);
+
+        return $this->participantsHydrator->hydrate($this->get('/group/participants', ['group_id' => $gid]));
     }
 
     public function addParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
+        $gid       = InputValidator::jid($groupId);
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->manageHydrator->hydrate($this->post('/group/participants', [
-            'group_id'     => $groupId,
-            'participants' => $participants,
+            'group_id'     => $gid,
+            'participants' => $validated,
         ]));
     }
 
     public function removeParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
+        $gid       = InputValidator::jid($groupId);
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->manageHydrator->hydrate($this->post('/group/participants/remove', [
-            'group_id'     => $groupId,
-            'participants' => $participants,
+            'group_id'     => $gid,
+            'participants' => $validated,
         ]));
     }
 
     public function promoteParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
+        $gid       = InputValidator::jid($groupId);
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->manageHydrator->hydrate($this->post('/group/participants/promote', [
-            'group_id'     => $groupId,
-            'participants' => $participants,
+            'group_id'     => $gid,
+            'participants' => $validated,
         ]));
     }
 
     public function demoteParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
+        $gid       = InputValidator::jid($groupId);
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->manageHydrator->hydrate($this->post('/group/participants/demote', [
-            'group_id'     => $groupId,
-            'participants' => $participants,
+            'group_id'     => $gid,
+            'participants' => $validated,
         ]));
     }
 
@@ -110,74 +127,96 @@ final class GroupClient extends ApiClient
 
     public function inviteLink(string $groupId): GroupInviteLinkResponse
     {
-        return $this->inviteHydrator->hydrate($this->get('/group/invite-link', ['group_id' => $groupId]));
+        $gid = InputValidator::jid($groupId);
+
+        return $this->inviteHydrator->hydrate($this->get('/group/invite-link', ['group_id' => $gid]));
     }
 
     public function setPhoto(string $groupId, string $base64Image): SetGroupPhotoResponse
     {
+        $gid = InputValidator::jid($groupId);
+
         return $this->photoHydrator->hydrate($this->post('/group/photo', [
-            'group_id' => $groupId,
+            'group_id' => $gid,
             'image'    => $base64Image,
         ]));
     }
 
     public function setName(string $groupId, string $name): GenericResponse
     {
+        $gid = InputValidator::jid($groupId);
+
         return $this->genericHydrator->hydrate($this->post('/group/name', [
-            'group_id' => $groupId,
+            'group_id' => $gid,
             'name'     => $name,
         ]));
     }
 
     public function setLocked(string $groupId, bool $locked): GenericResponse
     {
+        $gid = InputValidator::jid($groupId);
+
         return $this->genericHydrator->hydrate($this->post('/group/locked', [
-            'group_id' => $groupId,
+            'group_id' => $gid,
             'locked'   => $locked,
         ]));
     }
 
     public function setAnnounce(string $groupId, bool $announce): GenericResponse
     {
+        $gid = InputValidator::jid($groupId);
+
         return $this->genericHydrator->hydrate($this->post('/group/announce', [
-            'group_id' => $groupId,
+            'group_id' => $gid,
             'announce' => $announce,
         ]));
     }
 
     public function setTopic(string $groupId, string $topic): GenericResponse
     {
+        $gid = InputValidator::jid($groupId);
+
         return $this->genericHydrator->hydrate($this->post('/group/topic', [
-            'group_id' => $groupId,
+            'group_id' => $gid,
             'topic'    => $topic,
         ]));
     }
 
     public function participantRequests(string $groupId): GroupParticipantRequestsResponse
     {
+        $gid = InputValidator::jid($groupId);
+
         return $this->participantRequestsHydrator->hydrate($this->get('/group/participant-requests', [
-            'group_id' => $groupId,
+            'group_id' => $gid,
         ]));
     }
 
     public function approveRequest(string $groupId, string ...$participants): GenericResponse
     {
+        $gid       = InputValidator::jid($groupId);
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->genericHydrator->hydrate($this->post('/group/participant-requests/approve', [
-            'group_id'     => $groupId,
-            'participants' => $participants,
+            'group_id'     => $gid,
+            'participants' => $validated,
         ]));
     }
 
     public function rejectRequest(string $groupId, string ...$participants): GenericResponse
     {
+        $gid       = InputValidator::jid($groupId);
+        $validated = array_map([InputValidator::class, 'jid'], $participants);
+
         return $this->genericHydrator->hydrate($this->post('/group/participant-requests/reject', [
-            'group_id'     => $groupId,
-            'participants' => $participants,
+            'group_id'     => $gid,
+            'participants' => $validated,
         ]));
     }
 
     public function leave(string $groupId): GenericResponse
     {
-        return $this->genericHydrator->hydrate($this->post('/group/leave', ['group_id' => $groupId]));
+        $gid = InputValidator::jid($groupId);
+
+        return $this->genericHydrator->hydrate($this->post('/group/leave', ['group_id' => $gid]));
     }
 }

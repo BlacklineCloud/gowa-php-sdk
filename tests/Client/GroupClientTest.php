@@ -29,7 +29,7 @@ final class GroupClientTest extends TestCase
             'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
-                ['participant' => 'a@s.whatsapp.net', 'status' => 'success', 'message' => 'Participant added'],
+                ['participant' => '628111111111@s.whatsapp.net', 'status' => 'success', 'message' => 'Participant added'],
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
@@ -49,12 +49,12 @@ final class GroupClientTest extends TestCase
             new GenericResponseHydrator(),
         );
 
-        $client->addParticipants('gid', 'a@s.whatsapp.net', 'b@s.whatsapp.net');
+        $client->addParticipants('120363347168689807@g.us', '628111111111@s.whatsapp.net', '628222222222@s.whatsapp.net');
 
         $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
         self::assertIsArray($payload);
         /** @var list<string> $participants */
         $participants = $payload['participants'] ?? [];
-        self::assertSame(['gid', 'a@s.whatsapp.net', 'b@s.whatsapp.net'], [$payload['group_id'], ...$participants]);
+        self::assertSame(['120363347168689807@g.us', '628111111111@s.whatsapp.net', '628222222222@s.whatsapp.net'], [$payload['group_id'], ...$participants]);
     }
 }

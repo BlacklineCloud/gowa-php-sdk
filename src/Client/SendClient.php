@@ -10,6 +10,7 @@ use BlacklineCloud\SDK\GowaPHP\Domain\Dto\SendResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState;
 use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SendResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -28,7 +29,7 @@ final class SendClient extends ApiClient
     public function text(string $to, string $message, ?string $replyMessageId = null): SendResponse
     {
         $body = [
-            'jid'  => $to,
+            'jid'  => InputValidator::jid($to),
             'text' => $message,
         ];
         if ($replyMessageId !== null) {
@@ -41,7 +42,7 @@ final class SendClient extends ApiClient
     public function link(string $to, string $link, ?string $caption = null): SendResponse
     {
         $body = [
-            'jid'  => $to,
+            'jid'  => InputValidator::jid($to),
             'link' => $link,
         ];
         if ($caption !== null) {
@@ -54,7 +55,7 @@ final class SendClient extends ApiClient
     public function location(string $to, float $lat, float $lng, ?string $name = null, ?string $address = null): SendResponse
     {
         $body = [
-            'jid'       => $to,
+            'jid'       => InputValidator::jid($to),
             'latitude'  => $lat,
             'longitude' => $lng,
         ];
@@ -71,16 +72,16 @@ final class SendClient extends ApiClient
     public function contact(string $to, string $displayName, string $phone): SendResponse
     {
         return $this->hydrate($this->post('/send/contact', [
-            'jid'          => $to,
+            'jid'          => InputValidator::jid($to),
             'display_name' => $displayName,
-            'phone_number' => $phone,
+            'phone_number' => InputValidator::phone($phone),
         ]));
     }
 
     public function presence(string $to, string $presence): SendResponse
     {
         return $this->hydrate($this->post('/send/presence', [
-            'jid'      => $to,
+            'jid'      => InputValidator::jid($to),
             'presence' => $presence,
         ]));
     }
@@ -88,7 +89,7 @@ final class SendClient extends ApiClient
     public function chatPresence(string $to, PresenceState $state): SendResponse
     {
         return $this->hydrate($this->post('/send/chat-presence', [
-            'jid'      => $to,
+            'jid'      => InputValidator::jid($to),
             'presence' => $state->value,
         ]));
     }
@@ -96,7 +97,7 @@ final class SendClient extends ApiClient
     public function image(string $to, string $path, ?string $caption = null, bool $compress = true): SendResponse
     {
         return $this->hydrate($this->post('/send/image', [
-            'jid'      => $to,
+            'jid'      => InputValidator::jid($to),
             'path'     => $path,
             'caption'  => $caption,
             'compress' => $compress,
@@ -106,7 +107,7 @@ final class SendClient extends ApiClient
     public function audio(string $to, string $path, ?string $caption = null): SendResponse
     {
         return $this->hydrate($this->post('/send/audio', [
-            'jid'     => $to,
+            'jid'     => InputValidator::jid($to),
             'path'    => $path,
             'caption' => $caption,
         ]));
@@ -115,7 +116,7 @@ final class SendClient extends ApiClient
     public function file(string $to, string $path, ?string $caption = null): SendResponse
     {
         return $this->hydrate($this->post('/send/file', [
-            'jid'     => $to,
+            'jid'     => InputValidator::jid($to),
             'path'    => $path,
             'caption' => $caption,
         ]));
@@ -124,7 +125,7 @@ final class SendClient extends ApiClient
     public function sticker(string $to, string $path, ?string $caption = null): SendResponse
     {
         return $this->hydrate($this->post('/send/sticker', [
-            'jid'     => $to,
+            'jid'     => InputValidator::jid($to),
             'path'    => $path,
             'caption' => $caption,
         ]));
@@ -133,7 +134,7 @@ final class SendClient extends ApiClient
     public function video(string $to, string $path, ?string $caption = null, bool $compress = true): SendResponse
     {
         return $this->hydrate($this->post('/send/video', [
-            'jid'      => $to,
+            'jid'      => InputValidator::jid($to),
             'path'     => $path,
             'caption'  => $caption,
             'compress' => $compress,
@@ -143,7 +144,7 @@ final class SendClient extends ApiClient
     public function poll(string $to, string $question, string ...$options): SendResponse
     {
         return $this->hydrate($this->post('/send/poll', [
-            'jid'      => $to,
+            'jid'      => InputValidator::jid($to),
             'question' => $question,
             'options'  => $options,
         ]));

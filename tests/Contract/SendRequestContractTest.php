@@ -18,14 +18,14 @@ final class SendRequestContractTest extends TestCase
     {
         $psr17     = new Psr17Factory();
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], json_encode([
-            'code' => 'SUCCESS',
+            'code'    => 'SUCCESS',
             'message' => 'ok',
             'results' => [
                 'message_id' => 'abc',
-                'status' => 'sent',
+                'status'     => 'sent',
             ],
         ], JSON_THROW_ON_ERROR)));
-        $client    = new SendClient(
+        $client = new SendClient(
             new ClientConfig('https://api.example.test', 'u', 'p'),
             $transport,
             $psr17,
