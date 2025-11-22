@@ -20,8 +20,8 @@ final class NewsletterResponseHydrator implements HydratorInterface
         $items = [];
         foreach ($data as $row) {
             $rowR   = new ArrayReader((array) $row, '$.results.data');
-            $state  = new ArrayReader((array) $rowR->requireObject('state'), '$.results.data.state');
-            $thread = new ArrayReader((array) $rowR->requireObject('thread_metadata'), '$.results.data.thread_metadata');
+            $state  = new ArrayReader($rowR->requireObject('state'), '$.results.data.state');
+            $thread = new ArrayReader($rowR->requireObject('thread_metadata'), '$.results.data.thread_metadata');
 
             $items[] = new Newsletter(
                 id: $rowR->requireString('id'),

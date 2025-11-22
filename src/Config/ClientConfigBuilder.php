@@ -33,16 +33,26 @@ final class ClientConfigBuilder
 
     public static function fromEnv(): ClientConfig
     {
+        $baseUri = getenv('GOWA_BASE_URI');
+        $username = getenv('GOWA_USERNAME');
+        $password = getenv('GOWA_PASSWORD');
+        $requestTimeoutMs = getenv('GOWA_REQUEST_TIMEOUT_MS');
+        $connectTimeoutMs = getenv('GOWA_CONNECT_TIMEOUT_MS');
+        $maxRetries = getenv('GOWA_MAX_RETRIES');
+        $retryBackoff = getenv('GOWA_RETRY_BACKOFF_FACTOR');
+        $userAgent = getenv('GOWA_USER_AGENT');
+        $basePath = getenv('GOWA_BASE_PATH');
+
         return self::fromArray([
-            'base_uri'             => getenv('GOWA_BASE_URI') ?: '',
-            'username'             => getenv('GOWA_USERNAME') ?: '',
-            'password'             => getenv('GOWA_PASSWORD') ?: '',
-            'request_timeout_ms'   => getenv('GOWA_REQUEST_TIMEOUT_MS') ?: '10000',
-            'connect_timeout_ms'   => getenv('GOWA_CONNECT_TIMEOUT_MS') ?: '5000',
-            'max_retries'          => getenv('GOWA_MAX_RETRIES') ?: '2',
-            'retry_backoff_factor' => getenv('GOWA_RETRY_BACKOFF_FACTOR') ?: '2.0',
-            'user_agent'           => getenv('GOWA_USER_AGENT') ?: 'gowa-php-sdk',
-            'base_path'            => getenv('GOWA_BASE_PATH') ?: null,
+            'base_uri' => $baseUri === false ? '' : $baseUri,
+            'username' => $username === false ? '' : $username,
+            'password' => $password === false ? '' : $password,
+            'request_timeout_ms' => $requestTimeoutMs === false ? '10000' : $requestTimeoutMs,
+            'connect_timeout_ms' => $connectTimeoutMs === false ? '5000' : $connectTimeoutMs,
+            'max_retries' => $maxRetries === false ? '2' : $maxRetries,
+            'retry_backoff_factor' => $retryBackoff === false ? '2.0' : $retryBackoff,
+            'user_agent' => $userAgent === false ? 'gowa-php-sdk' : $userAgent,
+            'base_path' => $basePath === false ? null : $basePath,
         ]);
     }
 

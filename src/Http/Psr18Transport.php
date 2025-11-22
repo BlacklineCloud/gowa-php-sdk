@@ -17,7 +17,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-class Psr18Transport implements HttpTransportInterface
+final class Psr18Transport implements HttpTransportInterface
 {
     /** @var MiddlewareInterface[] */
     private array $middleware;

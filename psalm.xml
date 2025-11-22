@@ -9,5 +9,10 @@
     </projectFiles>
     <issueHandlers>
         <DocblockTypeContradiction errorLevel="info" />
+        <UnusedClass errorLevel="info" />
+        <PossiblyUnusedMethod errorLevel="info" />
+        <PossiblyUnusedReturnValue errorLevel="info" />
+        <PossiblyUnusedProperty errorLevel="info" />
+        <MissingOverrideAttribute errorLevel="info" />
     </issueHandlers>
 </psalm>

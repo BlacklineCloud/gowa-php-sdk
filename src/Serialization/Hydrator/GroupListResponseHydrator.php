@@ -21,7 +21,7 @@ final class GroupListResponseHydrator implements HydratorInterface
         foreach ($data as $row) {
             $rowR         = new ArrayReader((array) $row, '$.results.data');
             $participants = [];
-            foreach ((array) ($rowR->optionalObject('Participants') ?? []) as $p) {
+            foreach ($rowR->optionalObject('Participants') ?? [] as $p) {
                 $pR             = new ArrayReader((array) $p, '$.results.data.Participants');
                 $participants[] = new GroupParticipant(
                     jid: $pR->requireString('JID'),

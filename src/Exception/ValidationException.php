@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Exception;
 
-class ValidationException extends SdkException
+final class ValidationException extends SdkException
 {
 }

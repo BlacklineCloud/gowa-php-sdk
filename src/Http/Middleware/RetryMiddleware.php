@@ -78,7 +78,11 @@ final class RetryMiddleware implements MiddlewareInterface
 
     private function nextDelayMs(int $attempt): int
     {
-        return (int) (100 * ($this->config->retryBackoffFactor ** ($attempt - 1)));
+        $base     = $this->config->retryBackoffFactor;
+        $exponent = (float) ($attempt - 1);
+        $factor   = $base ** $exponent;
+
+        return (int) round(100.0 * $factor);
     }
 
     private function retryAfterMs(?int $retryAfterSeconds): ?int

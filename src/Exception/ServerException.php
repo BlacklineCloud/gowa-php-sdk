@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Exception;
 
-class ServerException extends SdkException
+final class ServerException extends SdkException
 {
     public function __construct(string $message = 'Server error', public readonly ?int $statusCode = null)
     {

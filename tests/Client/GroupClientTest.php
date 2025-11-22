@@ -53,7 +53,8 @@ final class GroupClientTest extends TestCase
 
         $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
         self::assertIsArray($payload);
-        self::assertIsArray($payload['participants'] ?? null);
-        self::assertSame(['gid', 'a@s.whatsapp.net', 'b@s.whatsapp.net'], [$payload['group_id'], ...$payload['participants']]);
+        /** @var list<string> $participants */
+        $participants = $payload['participants'] ?? [];
+        self::assertSame(['gid', 'a@s.whatsapp.net', 'b@s.whatsapp.net'], [$payload['group_id'], ...$participants]);
     }
 }

@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Exception;
 
-class TransportException extends SdkException
+final class TransportException extends SdkException
 {
 }

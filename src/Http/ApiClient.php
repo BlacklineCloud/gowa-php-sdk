@@ -75,9 +75,10 @@ abstract class ApiClient
     {
         $contents = (string) $response->getBody();
         $decoded  = Json::decode($contents);
-        if (!\is_array($decoded)) {
+        if (array_is_list($decoded)) {
             throw new ValidationException('Expected JSON object');
         }
+        /** @var array<string,mixed> $decoded */
 
         return $decoded;
     }
@@ -86,7 +87,7 @@ abstract class ApiClient
     private function buildUri(string $path, array $query): string
     {
         $base     = rtrim($this->config->baseUri, '/');
-        $basePath = $this->config->basePath ? '/' . trim($this->config->basePath, '/') : '';
+        $basePath = $this->config->basePath !== null && $this->config->basePath !== '' ? '/' . trim($this->config->basePath, '/') : '';
         $url      = $base . $basePath . '/' . ltrim($path, '/');
         if ($query !== []) {
             $normalized = [];

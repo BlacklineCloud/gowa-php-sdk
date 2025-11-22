@@ -19,7 +19,8 @@ final class LoggingMiddleware implements MiddlewareInterface
     {
         $start      = microtime(true);
         $response   = $next($request);
-        $durationMs = (int) ((microtime(true) - $start) * 1000);
+        $elapsed    = microtime(true) - $start;
+        $durationMs = (int) round($elapsed * 1000.0);
 
         $this->logger->info('HTTP request', [
             'method'          => $request->getMethod(),
