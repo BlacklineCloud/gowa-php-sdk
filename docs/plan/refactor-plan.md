@@ -15,8 +15,8 @@
   - [x] Extend webhook tests to cover numeric coordinates, missing optional fields, and invalid signatures.
 - [ ] Close OpenAPI coverage gaps
   - [x] Implement DTOs/hydrators/client methods/tests for `/user/pushname`.
-  - [ ] Implement `GroupInfo` DTO/hydrator/client method/tests for `/group/info`.
-  - [ ] Add participant export support: request builder, CSV response handling (stream/string), and tests for `/group/participants/export`.
+  - [x] Implement `GroupInfo` DTO/hydrator/client method/tests for `/group/info`.
+  - [x] Add participant export support: request builder, CSV response handling (stream/string), and tests for `/group/participants/export`.
   - [ ] Align fixtures/golden contract tests with new endpoints.
 - [ ] Media upload strategy
   - [ ] Introduce `MediaUploadInterface` (file path, PSR-7 stream, resource) and a default adapter.

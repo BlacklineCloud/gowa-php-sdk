@@ -9,6 +9,7 @@ use BlacklineCloud\SDK\GowaPHP\Contracts\Http\HttpTransportInterface;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\CreateGroupResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GenericResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GroupInfoFromLinkResponse;
+use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GroupInfoResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GroupInviteLinkResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GroupListResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GroupParticipantRequestsResponse;
@@ -19,6 +20,7 @@ use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\CreateGroupResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GenericResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupInfoFromLinkResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupInfoResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupInviteLinkResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupListResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GroupParticipantRequestsResponseHydrator;
@@ -41,6 +43,7 @@ final class GroupClient extends ApiClient
         private readonly GroupParticipantsResponseHydrator $participantsHydrator,
         private readonly ManageParticipantResponseHydrator $manageHydrator,
         private readonly GroupInfoFromLinkResponseHydrator $infoFromLinkHydrator,
+        private readonly GroupInfoResponseHydrator $infoHydrator,
         private readonly GroupInviteLinkResponseHydrator $inviteHydrator,
         private readonly SetGroupPhotoResponseHydrator $photoHydrator,
         private readonly GroupParticipantRequestsResponseHydrator $participantRequestsHydrator,
@@ -62,6 +65,13 @@ final class GroupClient extends ApiClient
     public function list(): GroupListResponse
     {
         return $this->listHydrator->hydrate($this->get('/user/my/groups'));
+    }
+
+    public function info(string $groupId): GroupInfoResponse
+    {
+        $gid = InputValidator::jid($groupId);
+
+        return $this->infoHydrator->hydrate($this->get('/group/info', ['group_id' => $gid]));
     }
 
     public function participants(string $groupId): GroupParticipantsResponse
@@ -189,6 +199,18 @@ final class GroupClient extends ApiClient
         return $this->participantRequestsHydrator->hydrate($this->get('/group/participant-requests', [
             'group_id' => $gid,
         ]));
+    }
+
+    public function exportParticipants(string $groupId): string
+    {
+        $gid     = InputValidator::jid($groupId);
+        $uri     = $this->buildUri('/group/participants/export', ['group_id' => $gid]);
+        $request = $this->requestFactory->createRequest('GET', $uri)
+            ->withHeader('Accept', 'text/csv');
+
+        $response = $this->transport->sendRequest($request);
+
+        return (string) $response->getBody();
     }
 
     public function approveRequest(string $groupId, string ...$participants): GenericResponse
