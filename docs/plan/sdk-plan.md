@@ -64,10 +64,10 @@
 - [x] Document upgrade workflow in `CONTRIBUTING.md` (regenerate DTOs, update changelog, bump version)
 
 ## 8. Testing Strategy
-- [ ] Unit tests: value objects, serializers, signature verification, error mapping, retry policy
+- [x] Unit tests: value objects, serializers, signature verification, error mapping, retry policy
 - [ ] Contract tests: golden files for request/response serialization vs OpenAPI examples
 - [ ] Integration tests: HTTP mock server (e.g., `php-http/mock-client`); ensure retry/idempotency behavior
-- [ ] Static analysis gates: PHPStan lvl max, Psalm lvl 1; 100% type coverage goal
+- [x] Static analysis gates: PHPStan lvl max, Psalm lvl 1; 100% type coverage goal
 - [ ] Code coverage target >= 90%, track via CI badge
 
 ## 9. Documentation & DX

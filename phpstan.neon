@@ -6,3 +6,5 @@ parameters:
   checkMissingIterableValueType: true
   reportUnmatchedIgnoredErrors: true
   tmpDir: var/cache/phpstan
+  parallel: true
+  memoryLimit: 1G
