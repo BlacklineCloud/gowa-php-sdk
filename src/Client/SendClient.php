@@ -11,6 +11,8 @@ use BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState;
 use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SendResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
+use BlacklineCloud\SDK\GowaPHP\Support\Media\FileMediaUpload;
+use BlacklineCloud\SDK\GowaPHP\Support\Media\MediaUploadInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -94,48 +96,48 @@ final class SendClient extends ApiClient
         ]));
     }
 
-    public function image(string $to, string $path, ?string $caption = null, bool $compress = true): SendResponse
+    public function image(string $to, string|MediaUploadInterface $path, ?string $caption = null, bool $compress = true): SendResponse
     {
         return $this->hydrate($this->post('/send/image', [
             'jid'      => InputValidator::jid($to),
-            'path'     => $path,
+            'path'     => $this->mediaPath($path),
             'caption'  => $caption,
             'compress' => $compress,
         ]));
     }
 
-    public function audio(string $to, string $path, ?string $caption = null): SendResponse
+    public function audio(string $to, string|MediaUploadInterface $path, ?string $caption = null): SendResponse
     {
         return $this->hydrate($this->post('/send/audio', [
             'jid'     => InputValidator::jid($to),
-            'path'    => $path,
+            'path'    => $this->mediaPath($path),
             'caption' => $caption,
         ]));
     }
 
-    public function file(string $to, string $path, ?string $caption = null): SendResponse
+    public function file(string $to, string|MediaUploadInterface $path, ?string $caption = null): SendResponse
     {
         return $this->hydrate($this->post('/send/file', [
             'jid'     => InputValidator::jid($to),
-            'path'    => $path,
+            'path'    => $this->mediaPath($path),
             'caption' => $caption,
         ]));
     }
 
-    public function sticker(string $to, string $path, ?string $caption = null): SendResponse
+    public function sticker(string $to, string|MediaUploadInterface $path, ?string $caption = null): SendResponse
     {
         return $this->hydrate($this->post('/send/sticker', [
             'jid'     => InputValidator::jid($to),
-            'path'    => $path,
+            'path'    => $this->mediaPath($path),
             'caption' => $caption,
         ]));
     }
 
-    public function video(string $to, string $path, ?string $caption = null, bool $compress = true): SendResponse
+    public function video(string $to, string|MediaUploadInterface $path, ?string $caption = null, bool $compress = true): SendResponse
     {
         return $this->hydrate($this->post('/send/video', [
             'jid'      => InputValidator::jid($to),
-            'path'     => $path,
+            'path'     => $this->mediaPath($path),
             'caption'  => $caption,
             'compress' => $compress,
         ]));
@@ -154,5 +156,18 @@ final class SendClient extends ApiClient
     private function hydrate(array $payload): SendResponse
     {
         return $this->sendHydrator->hydrate($payload);
+    }
+
+    /**
+     * @param string|MediaUploadInterface $media
+     */
+    private function mediaPath(string|MediaUploadInterface $media): string
+    {
+        if (\is_string($media)) {
+            return $media;
+        }
+
+        // Validate and materialize media sources (streams/files) while keeping string paths backward compatible.
+        return $media->toPath();
     }
 }

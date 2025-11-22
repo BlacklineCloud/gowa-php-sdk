@@ -19,9 +19,9 @@
   - [x] Add participant export support: request builder, CSV response handling (stream/string), and tests for `/group/participants/export`.
   - [ ] Align fixtures/golden contract tests with new endpoints.
 - [ ] Media upload strategy
-  - [ ] Introduce `MediaUploadInterface` (file path, PSR-7 stream, resource) and a default adapter.
-  - [ ] Wire send media endpoints to accept the abstraction (preserve BC by accepting string paths).
-  - [ ] Add validation for file existence/size and MIME hints; cover with unit tests.
+  - [x] Introduce `MediaUploadInterface` (file path, PSR-7 stream, resource) and a default adapter.
+  - [x] Wire send media endpoints to accept the abstraction (preserve BC by accepting string paths).
+  - [x] Add validation for file existence/size and MIME hints; cover with unit tests.
 - [ ] Documentation & changelog correctness
   - [ ] Update `CHANGELOG.md` to reflect current feature set and pending work.
   - [ ] Reconcile `docs/plan/sdk-plan.md` DoD/checkboxes with actual status or add a note linking to this hardening plan.
