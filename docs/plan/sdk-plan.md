@@ -31,7 +31,7 @@
 - [x] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; DTOs for Login/Send/Devices/Privacy/UserInfo/Avatar/BusinessProfile/GroupInfoFromLink/GroupParticipants/ManageParticipant/Chat list & messages/Chat actions/Newsletter/Generic/Contacts/Group list/Participant requests/Message actions/Webhook events)
 - [x] Serializer layer: JSON (fail-fast), request builders, response hydrators; map unknown fields conservatively
 - [x] Validation: input guards (Design by Contract) with descriptive exceptions
-- [ ] Self-review checklist applied to models & serializer (pending pass)
+- [x] Self-review checklist applied to models & serializer
 
 ## 4. Service Clients (by API tag)
 - [x] `AppClient`: login (QR/code), logout, reconnect, devices
@@ -42,17 +42,17 @@
 - [x] `GroupClient`: info-from-link, create, list, participants add/remove/promote/demote/export, join via link, participant requests approve/reject, leave, photo, name, locked, announce, topic, invite link
 - [x] `NewsletterClient`: list, unfollow (extension ready)
 - [x] Consistent method signatures: strongly-typed inputs/outputs; participant lists now variadic
-- [x] Unit tests + self-review per client (App/User/Send/Message/Chat/Group/Newsletter covered; final self-review sweep pending)
+- [x] Unit tests + self-review per client (App/User/Send/Message/Chat/Group/Newsletter covered)
 
 ## 5. Webhook Support
 - [x] `WebhookVerifier` implementing HMAC-SHA256 signature check, constant-time comparison
 - [x] Event deserializer mapping payloads to domain events (message, receipt, group, media, special flags)
-- [ ] Idempotency support (event ID tracking) and duplicate handling guidance
-- [ ] Middleware example for common frameworks (PSR-15 adapter + Laravel/Symfony bridges) with docs
-- [ ] Self-review checklist for webhook layer
+- [x] Idempotency support (event ID tracking) and duplicate handling guidance
+- [x] Middleware example for common frameworks (PSR-15 adapter + Laravel/Symfony bridges) with docs
+- [x] Self-review checklist for webhook layer
 
 ## 6. Configuration & Extensibility
-- [ ] Config builder from env/array with validation; sensible defaults (timeouts, base path)
+- [x] Config builder from env/array with validation; sensible defaults (timeouts, base path)
 - [ ] Pluggable middlewares: auth (Basic), tracing, retry, circuit breaker placeholder
 - [ ] File/media upload strategy abstraction to support local file path, stream, PSR-7 stream
 - [ ] Clock & UUID providers injected for testability
