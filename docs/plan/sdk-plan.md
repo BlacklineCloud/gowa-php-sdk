@@ -75,7 +75,7 @@
 - [ ] API docs: generated from PHPDoc + examples; publish via GitHub Pages action
 - [ ] Usage recipes: login flows (QR/code), sending media, group admin, webhook handling, error handling patterns
 - [ ] Contribution guide: coding standards, commit convention (Conventional Commits), review checklist, test matrix
-- [ ] Example apps: CLI demo and minimal webhook consumer
+- [x] Example apps: CLI demo and minimal webhook consumer
 
 ## 10. Release & Maintenance
 - [ ] Semantic versioning policy; document supported upstream API versions
