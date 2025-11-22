@@ -17,6 +17,15 @@ Thanks for your interest in contributing to the Gowa PHP SDK!
 4. Update documentation (README, CHANGELOG) when behavior changes.
 5. Ensure CI passes for PHP 8.2/8.3/8.4.
 
+## Upstream drift response
+- Scheduled CI runs `bin/diff-openapi` weekly to detect spec drift (OpenAPI/webhook docs).
+- If drift is detected (issue auto-created), remediate by:
+  1. Running `bin/sync-upstream` to refresh `.docs/official/*`.
+  2. Regenerating/adjusting DTOs, hydrators, and clients to match spec changes.
+  3. Updating `upstream/manifest.json` and re-running `bin/diff-openapi` (should exit 0).
+  4. Adding changelog entries and version bumping as needed.
+  5. Opening a PR referencing the drift issue.
+
 ## Self-Review Checklist (run after each component)
 - [ ] Is this code self-documenting?
 - [ ] Have I eliminated all duplication?
