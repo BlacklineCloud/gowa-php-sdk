@@ -11,7 +11,6 @@ use BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState;
 use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SendResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Support\InputValidator;
-use BlacklineCloud\SDK\GowaPHP\Support\Media\FileMediaUpload;
 use BlacklineCloud\SDK\GowaPHP\Support\Media\MediaUploadInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;

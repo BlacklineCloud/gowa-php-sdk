@@ -12,7 +12,7 @@ final class GenericResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): GenericResponse
     {
-        $r = new ArrayReader($payload);
+        $r       = new ArrayReader($payload);
         $results = $payload['results'] ?? null;
         if ($results !== null && !\is_string($results) && !\is_array($results)) {
             throw new \InvalidArgumentException('Expected results to be string|array|null');

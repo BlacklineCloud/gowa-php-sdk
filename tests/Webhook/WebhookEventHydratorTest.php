@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Tests\Webhook;
 
+use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
 use BlacklineCloud\SDK\GowaPHP\Webhook\WebhookEventHydrator;
 use PHPUnit\Framework\TestCase;
-use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
 
 final class WebhookEventHydratorTest extends TestCase
 {
@@ -90,7 +90,7 @@ final class WebhookEventHydratorTest extends TestCase
                 'replied_id'     => null,
                 'quoted_message' => null,
             ],
-            'location'  => [
+            'location' => [
                 'degreesLatitude'  => 1.23,
                 'degreesLongitude' => '45.67',
                 'name'             => null,

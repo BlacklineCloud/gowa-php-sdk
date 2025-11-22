@@ -26,7 +26,7 @@ final class TransportRetryTest extends TestCase
     {
         $psr17   = new Psr17Factory();
         $counter = new RetryCounter();
-        $client = new class ($counter) implements ClientInterface {
+        $client  = new class ($counter) implements ClientInterface {
             public function __construct(private readonly RetryCounter $counter)
             {
             }

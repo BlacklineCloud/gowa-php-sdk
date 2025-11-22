@@ -48,7 +48,7 @@ final class StreamMediaUpload implements MediaUploadInterface
             $stream->rewind();
         }
 
-        $bytes = $stream->getContents();
+        $bytes   = $stream->getContents();
         $written = file_put_contents($this->path, $bytes);
         if ($written === false) {
             throw new \RuntimeException('Unable to write media stream to temporary file');
