@@ -99,6 +99,42 @@ final class ArrayReader
         return $value;
     }
 
+    public function requireFloat(string $key): float
+    {
+        $value = $this->requireKey($key);
+        if (\is_float($value)) {
+            return $value;
+        }
+        if (\is_int($value)) {
+            return (float) $value;
+        }
+        if (\is_string($value) && is_numeric($value)) {
+            return (float) $value;
+        }
+
+        throw new ValidationException($this->err($key, 'float'));
+    }
+
+    public function optionalFloat(string $key): ?float
+    {
+        if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
+            return null;
+        }
+
+        $value = $this->data[$key];
+        if (\is_float($value)) {
+            return $value;
+        }
+        if (\is_int($value)) {
+            return (float) $value;
+        }
+        if (\is_string($value) && is_numeric($value)) {
+            return (float) $value;
+        }
+
+        throw new ValidationException($this->err($key, 'float|null'));
+    }
+
     /** @return array<int|string,mixed> */
     public function requireObject(string $key): array
     {

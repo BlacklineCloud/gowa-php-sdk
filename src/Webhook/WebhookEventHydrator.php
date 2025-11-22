@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Webhook;
 
+use BlacklineCloud\SDK\GowaPHP\Domain\Value\Timestamp;
 use BlacklineCloud\SDK\GowaPHP\Serialization\ArrayReader;
 use BlacklineCloud\SDK\GowaPHP\Webhook\Model\ContactPayload;
 use BlacklineCloud\SDK\GowaPHP\Webhook\Model\GroupParticipantsPayload;
@@ -26,7 +27,7 @@ final class WebhookEventHydrator
             senderId: $reader->requireString('sender_id'),
             chatId: $reader->requireString('chat_id'),
             from: $reader->requireString('from'),
-            timestamp: new \DateTimeImmutable($reader->requireString('timestamp')),
+            timestamp: Timestamp::fromString($reader->requireString('timestamp'))->value(),
             pushname: $reader->optionalString('pushname'),
         );
 
@@ -118,8 +119,8 @@ final class WebhookEventHydrator
         if (isset($payload['location'])) {
             $loc      = new ArrayReader($reader->requireObject('location'), '$.location');
             $location = new LocationPayload(
-                latitude: (float) $loc->requireString('degreesLatitude'),
-                longitude: (float) $loc->requireString('degreesLongitude'),
+                latitude: $loc->requireFloat('degreesLatitude'),
+                longitude: $loc->requireFloat('degreesLongitude'),
                 name: $loc->optionalString('name'),
                 address: $loc->optionalString('address'),
             );
