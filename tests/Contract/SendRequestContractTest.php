@@ -17,7 +17,14 @@ final class SendRequestContractTest extends TestCase
     public function testSendTextMatchesContract(): void
     {
         $psr17     = new Psr17Factory();
-        $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], '{}'));
+        $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], json_encode([
+            'code' => 'SUCCESS',
+            'message' => 'ok',
+            'results' => [
+                'message_id' => 'abc',
+                'status' => 'sent',
+            ],
+        ], JSON_THROW_ON_ERROR)));
         $client    = new SendClient(
             new ClientConfig('https://api.example.test', 'u', 'p'),
             $transport,

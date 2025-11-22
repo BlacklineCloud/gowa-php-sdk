@@ -75,7 +75,7 @@ abstract class ApiClient
     {
         $contents = (string) $response->getBody();
         $decoded  = Json::decode($contents);
-        if (array_is_list($decoded)) {
+        if ($decoded !== [] && array_is_list($decoded)) {
             throw new ValidationException('Expected JSON object');
         }
         /** @var array<string,mixed> $decoded */
