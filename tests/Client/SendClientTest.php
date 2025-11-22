@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace BlacklineCloud\SDK\GowaPHP\Tests\Client;
+
+use BlacklineCloud\SDK\GowaPHP\Client\SendClient;
+use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SendResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Tests\Support\FakeTransport;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7\Response;
+use PHPUnit\Framework\TestCase;
+
+final class SendClientTest extends TestCase
+{
+    public function testSendText(): void
+    {
+        $psr17 = new Psr17Factory();
+        $body = json_encode([
+            'code' => 'SUCCESS',
+            'message' => 'Success',
+            'results' => [
+                'message_id' => 'abc',
+                'status' => 'sent',
+            ],
+        ], JSON_THROW_ON_ERROR);
+        $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
+        $client = new SendClient(
+            new ClientConfig('https://api.example.test', 'u', 'p'),
+            $transport,
+            $psr17,
+            $psr17,
+            new SendResponseHydrator(),
+        );
+
+        $dto = $client->text('jid@s.whatsapp.net', 'hello');
+
+        self::assertSame('abc', $dto->messageId);
+        self::assertSame('https://api.example.test/send/message', (string) $transport->lastRequest?->getUri());
+    }
+}

@@ -48,7 +48,7 @@ final class GroupClient extends ApiClient
         parent::__construct($config, $transport, $requestFactory, $streamFactory);
     }
 
-    public function create(string $subject, array $participants = []): CreateGroupResponse
+    public function create(string $subject, string ...$participants): CreateGroupResponse
     {
         return $this->createHydrator->hydrate($this->post('/group', [
             'subject' => $subject,
@@ -66,9 +66,33 @@ final class GroupClient extends ApiClient
         return $this->participantsHydrator->hydrate($this->get('/group/participants', ['group_id' => $groupId]));
     }
 
-    public function manageParticipants(string $groupId, array $participants, string $action): ManageParticipantResponse
+    public function addParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
-        return $this->manageHydrator->hydrate($this->post('/group/participants/' . $action, [
+        return $this->manageHydrator->hydrate($this->post('/group/participants', [
+            'group_id' => $groupId,
+            'participants' => $participants,
+        ]));
+    }
+
+    public function removeParticipants(string $groupId, string ...$participants): ManageParticipantResponse
+    {
+        return $this->manageHydrator->hydrate($this->post('/group/participants/remove', [
+            'group_id' => $groupId,
+            'participants' => $participants,
+        ]));
+    }
+
+    public function promoteParticipants(string $groupId, string ...$participants): ManageParticipantResponse
+    {
+        return $this->manageHydrator->hydrate($this->post('/group/participants/promote', [
+            'group_id' => $groupId,
+            'participants' => $participants,
+        ]));
+    }
+
+    public function demoteParticipants(string $groupId, string ...$participants): ManageParticipantResponse
+    {
+        return $this->manageHydrator->hydrate($this->post('/group/participants/demote', [
             'group_id' => $groupId,
             'participants' => $participants,
         ]));
@@ -136,7 +160,7 @@ final class GroupClient extends ApiClient
         ]));
     }
 
-    public function approveRequest(string $groupId, array $participants): GenericResponse
+    public function approveRequest(string $groupId, string ...$participants): GenericResponse
     {
         return $this->genericHydrator->hydrate($this->post('/group/participant-requests/approve', [
             'group_id' => $groupId,
@@ -144,7 +168,7 @@ final class GroupClient extends ApiClient
         ]));
     }
 
-    public function rejectRequest(string $groupId, array $participants): GenericResponse
+    public function rejectRequest(string $groupId, string ...$participants): GenericResponse
     {
         return $this->genericHydrator->hydrate($this->post('/group/participant-requests/reject', [
             'group_id' => $groupId,
