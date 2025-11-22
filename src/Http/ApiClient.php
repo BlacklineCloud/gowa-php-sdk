@@ -84,7 +84,7 @@ abstract class ApiClient
     }
 
     /** @param array<string,int|string|bool> $query */
-    private function buildUri(string $path, array $query): string
+    protected function buildUri(string $path, array $query): string
     {
         $base     = rtrim($this->config->baseUri, '/');
         $basePath = $this->config->basePath !== null && $this->config->basePath !== '' ? '/' . trim($this->config->basePath, '/') : '';
