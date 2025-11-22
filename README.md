@@ -1,5 +1,7 @@
 # Gowa PHP SDK
 
+[![coverage >= 90%](https://img.shields.io/badge/coverage-%E2%89%A5%2090%25-blue)](#coverage)
+
 Typed, PSR-compliant PHP SDK for [Go WhatsApp Web MultiDevice](https://github.com/aldinokemal/go-whatsapp-web-multidevice). Root namespace: `BlacklineCloud\SDK\GowaPHP`.
 
 ## Installation
