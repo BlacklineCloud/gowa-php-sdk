@@ -49,6 +49,8 @@ $app->login();
 
 // Send text
 $send->text('628123456789@s.whatsapp.net', 'Hello from PHP');
+// Send chat presence
+$send->chatPresence('628123456789@s.whatsapp.net', \BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState::Composing);
 ```
 
 ## Webhook Verification

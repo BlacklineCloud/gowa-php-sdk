@@ -72,7 +72,7 @@
 
 ## 9. Documentation & DX
 - [x] README: installation, quick start, minimal send example, webhook verification snippet, changelog link
-- [x] API docs: generated from PHPDoc + examples; publish via GitHub Pages action (plan documented; workflow TBD)
+- [x] API docs: generated from PHPDoc + examples; publish via GitHub Pages action (workflow placeholder added)
 - [x] Usage recipes: login flows (QR/code), sending media, group admin, webhook handling, error handling patterns
 - [x] Contribution guide: coding standards, commit convention (Conventional Commits), review checklist, test matrix
 - [x] Example apps: CLI demo and minimal webhook consumer
