@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+UPSTREAM_REPO="https://raw.githubusercontent.com/aldinokemal/go-whatsapp-web-multidevice/master"
+DEST_DIR=".docs/official"
+MANIFEST="upstream/manifest.json"
+
+fetch() {
+  local path="$1" target="$2"
+  echo "Fetching $path -> $target" >&2
+  curl -fsSL "$UPSTREAM_REPO/$path" -o "$target"
+}
+
+declare -A FILES=(
+  ["openapi.yaml"]="docs/openapi.yaml"
+  ["webhook-payload.md"]="docs/webhook-payload.md"
+)
+
+mkdir -p "$DEST_DIR" upstream
+
+for localName in "${!FILES[@]}"; do
+  remotePath="${FILES[$localName]}"
+  fetch "$remotePath" "$DEST_DIR/$localName"
+  sha=$(shasum -a 256 "$DEST_DIR/$localName" | awk '{print $1}')
+  jq --arg file "$DEST_DIR/$localName" --arg sha "$sha" --arg now "$(date -Iseconds)" \
+    '.artifacts[$file] = {sha256:$sha, updated_at:$now}' \
+    "$MANIFEST" > "$MANIFEST.tmp" || true
+  mv "$MANIFEST.tmp" "$MANIFEST"
+done
+
+echo "Upstream files synced and manifest updated at $MANIFEST"

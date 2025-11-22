@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MANIFEST="upstream/manifest.json"
+OPENAPI=".docs/official/openapi.yaml"
+WEBHOOK=".docs/official/webhook-payload.md"
+
+if [ ! -f "$MANIFEST" ]; then
+  echo "Manifest not found at $MANIFEST" >&2
+  exit 1
+fi
+
+manifest_openapi_sha=$(jq -r '.artifacts.openapi.sha256 // empty' "$MANIFEST")
+manifest_webhook_sha=$(jq -r '.artifacts.webhook_payload.sha256 // empty' "$MANIFEST")
+
+calc_sha() {
+  shasum -a 256 "$1" | awk '{print $1}'
+}
+
+current_openapi_sha=$(calc_sha "$OPENAPI")
+current_webhook_sha=$(calc_sha "$WEBHOOK")
+
+status=0
+
+if [ "$manifest_openapi_sha" != "$current_openapi_sha" ]; then
+  echo "OpenAPI spec drift detected" >&2
+  status=1
+fi
+
+if [ "$manifest_webhook_sha" != "$current_webhook_sha" ]; then
+  echo "Webhook payload doc drift detected" >&2
+  status=1
+fi
+
+if [ $status -ne 0 ]; then
+  echo "Run bin/sync-upstream and regenerate DTOs." >&2
+fi
+
+exit $status
