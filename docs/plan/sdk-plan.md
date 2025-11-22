@@ -28,7 +28,7 @@
 ## 3. Domain Model & Serialization
 - [x] Value Objects: `Jid`, `MessageId`, `Timestamp`, `PhoneNumber`, `MediaPath`, `WebhookSignature`
 - [x] Enums: message ack status, receipt type, group action type, media mime types, presence states
-- [ ] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; DTOs for Login/Send/Devices/Privacy/UserInfo/Avatar/BusinessProfile/GroupInfoFromLink/GroupParticipants/ManageParticipant/Chat list & messages/Chat actions/Newsletter/Generic/Contacts/Group list/Participant requests/Message actions)
+- [x] Request/Response DTOs per OpenAPI schemas; use readonly properties, typed collections (framework in place; DTOs for Login/Send/Devices/Privacy/UserInfo/Avatar/BusinessProfile/GroupInfoFromLink/GroupParticipants/ManageParticipant/Chat list & messages/Chat actions/Newsletter/Generic/Contacts/Group list/Participant requests/Message actions/Webhook events)
 - [x] Serializer layer: JSON (fail-fast), request builders, response hydrators; map unknown fields conservatively
 - [x] Validation: input guards (Design by Contract) with descriptive exceptions
 - [ ] Self-review checklist applied to models & serializer (pending pass)
@@ -45,8 +45,8 @@
 - [x] Unit tests + self-review per client (App/User/Send/Message/Chat/Group/Newsletter covered; final self-review sweep pending)
 
 ## 5. Webhook Support
-- [ ] `WebhookVerifier` implementing HMAC-SHA256 signature check, constant-time comparison
-- [ ] Event deserializer mapping payloads to domain events (message, receipt, group, media, special flags)
+- [x] `WebhookVerifier` implementing HMAC-SHA256 signature check, constant-time comparison
+- [x] Event deserializer mapping payloads to domain events (message, receipt, group, media, special flags)
 - [ ] Idempotency support (event ID tracking) and duplicate handling guidance
 - [ ] Middleware example for common frameworks (PSR-15 adapter + Laravel/Symfony bridges) with docs
 - [ ] Self-review checklist for webhook layer

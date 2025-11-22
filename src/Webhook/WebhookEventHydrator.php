@@ -22,7 +22,7 @@ final class WebhookEventHydrator
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): WebhookEvent
     {
-        $reader = new ArrayReader($payload);
+        $reader  = new ArrayReader($payload);
         $context = new WebhookContext(
             senderId: $reader->requireString('sender_id'),
             chatId: $reader->requireString('chat_id'),
@@ -33,7 +33,7 @@ final class WebhookEventHydrator
 
         // Receipts
         if (($payload['event'] ?? null) === 'message.ack') {
-            $res = new ArrayReader($reader->requireObject('payload'), '$.payload');
+            $res     = new ArrayReader($reader->requireObject('payload'), '$.payload');
             $receipt = new ReceiptPayload(
                 chatId: $res->requireString('chat_id'),
                 from: $res->requireString('from'),
@@ -48,7 +48,7 @@ final class WebhookEventHydrator
 
         // Group participant events
         if (($payload['event'] ?? null) === 'group.participants') {
-            $res = new ArrayReader($reader->requireObject('payload'), '$.payload');
+            $res   = new ArrayReader($reader->requireObject('payload'), '$.payload');
             $group = new GroupParticipantsPayload(
                 chatId: $res->requireString('chat_id'),
                 type: $res->requireString('type'),
@@ -75,7 +75,7 @@ final class WebhookEventHydrator
         // Message-type events
         $message = null;
         if (isset($payload['message'])) {
-            $msg = new ArrayReader($reader->requireObject('message'), '$.message');
+            $msg     = new ArrayReader($reader->requireObject('message'), '$.message');
             $message = new MessagePayload(
                 text: $msg->requireString('text'),
                 id: $msg->requireString('id'),
@@ -86,22 +86,22 @@ final class WebhookEventHydrator
 
         $reaction = null;
         if (isset($payload['reaction'])) {
-            $re = new ArrayReader($reader->requireObject('reaction'), '$.reaction');
+            $re       = new ArrayReader($reader->requireObject('reaction'), '$.reaction');
             $reaction = new ReactionPayload(
                 message: $re->requireString('message'),
                 id: $re->requireString('id'),
             );
         }
 
-        $image = $this->maybeMedia($payload, 'image');
-        $video = $this->maybeMedia($payload, 'video');
-        $audio = $this->maybeMedia($payload, 'audio');
+        $image    = $this->maybeMedia($payload, 'image');
+        $video    = $this->maybeMedia($payload, 'video');
+        $audio    = $this->maybeMedia($payload, 'audio');
         $document = $this->maybeMedia($payload, 'document');
-        $sticker = $this->maybeMedia($payload, 'sticker');
+        $sticker  = $this->maybeMedia($payload, 'sticker');
 
         $contact = null;
         if (isset($payload['contact'])) {
-            $c = new ArrayReader($reader->requireObject('contact'), '$.contact');
+            $c       = new ArrayReader($reader->requireObject('contact'), '$.contact');
             $contact = new ContactPayload(
                 displayName: $c->requireString('displayName'),
                 vcard: $c->requireString('vcard'),
@@ -110,7 +110,7 @@ final class WebhookEventHydrator
 
         $location = null;
         if (isset($payload['location'])) {
-            $loc = new ArrayReader($reader->requireObject('location'), '$.location');
+            $loc      = new ArrayReader($reader->requireObject('location'), '$.location');
             $location = new LocationPayload(
                 latitude: (float) $loc->requireString('degreesLatitude'),
                 longitude: (float) $loc->requireString('degreesLongitude'),
