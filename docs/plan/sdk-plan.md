@@ -36,7 +36,7 @@
 ## 4. Service Clients (by API tag)
 - [x] `AppClient`: login (QR/code), logout, reconnect, devices
 - [x] `UserClient`: info, avatar, pushname, privacy, my groups/contacts/newsletters, business profile
-- [ ] `SendClient`: text, image, audio, file, sticker, video, contact, link, location, poll, presence/chat presence
+- [x] `SendClient`: text, link, location, contact, presence, image/audio/file/sticker/video/poll (chat presence pending if required)
 - [x] `MessageClient`: revoke, delete, reaction, update, read, star/unstar
 - [x] `ChatClient`: list chats, chat messages, labels, pin
 - [x] `GroupClient`: info-from-link, create, list, participants add/remove/promote/demote/export, join via link, participant requests approve/reject, leave, photo, name, locked, announce, topic, invite link

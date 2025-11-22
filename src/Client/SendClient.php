@@ -84,6 +84,62 @@ final class SendClient extends ApiClient
         ]));
     }
 
+    public function image(string $to, string $path, ?string $caption = null, bool $compress = true): SendResponse
+    {
+        return $this->hydrate($this->post('/send/image', [
+            'jid' => $to,
+            'path' => $path,
+            'caption' => $caption,
+            'compress' => $compress,
+        ]));
+    }
+
+    public function audio(string $to, string $path, ?string $caption = null): SendResponse
+    {
+        return $this->hydrate($this->post('/send/audio', [
+            'jid' => $to,
+            'path' => $path,
+            'caption' => $caption,
+        ]));
+    }
+
+    public function file(string $to, string $path, ?string $caption = null): SendResponse
+    {
+        return $this->hydrate($this->post('/send/file', [
+            'jid' => $to,
+            'path' => $path,
+            'caption' => $caption,
+        ]));
+    }
+
+    public function sticker(string $to, string $path, ?string $caption = null): SendResponse
+    {
+        return $this->hydrate($this->post('/send/sticker', [
+            'jid' => $to,
+            'path' => $path,
+            'caption' => $caption,
+        ]));
+    }
+
+    public function video(string $to, string $path, ?string $caption = null, bool $compress = true): SendResponse
+    {
+        return $this->hydrate($this->post('/send/video', [
+            'jid' => $to,
+            'path' => $path,
+            'caption' => $caption,
+            'compress' => $compress,
+        ]));
+    }
+
+    public function poll(string $to, string $question, string ...$options): SendResponse
+    {
+        return $this->hydrate($this->post('/send/poll', [
+            'jid' => $to,
+            'question' => $question,
+            'options' => $options,
+        ]));
+    }
+
     private function hydrate(array $payload): SendResponse
     {
         return $this->sendHydrator->hydrate($payload);
