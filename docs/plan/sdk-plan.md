@@ -71,7 +71,7 @@
 - [ ] Code coverage target >= 90%, track via CI badge
 
 ## 9. Documentation & DX
-- [ ] README: installation, quick start, minimal send example, webhook verification snippet, changelog link
+- [x] README: installation, quick start, minimal send example, webhook verification snippet, changelog link
 - [ ] API docs: generated from PHPDoc + examples; publish via GitHub Pages action
 - [ ] Usage recipes: login flows (QR/code), sending media, group admin, webhook handling, error handling patterns
 - [ ] Contribution guide: coding standards, commit convention (Conventional Commits), review checklist, test matrix
