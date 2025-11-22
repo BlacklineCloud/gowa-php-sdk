@@ -15,13 +15,13 @@ final class ChatListResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): ChatListResponse
     {
-        $reader = new ArrayReader($payload);
+        $reader        = new ArrayReader($payload);
         $resultsReader = new ArrayReader($reader->requireObject('results'), '$.results');
-        $pagination = $this->pagination($resultsReader->requireObject('pagination'));
-        $chats = [];
+        $pagination    = $this->pagination($resultsReader->requireObject('pagination'));
+        $chats         = [];
         foreach ($resultsReader->requireObject('data') as $row) {
             $rowReader = new ArrayReader((array) $row, '$.results.data');
-            $chats[] = new Chat(
+            $chats[]   = new Chat(
                 jid: $rowReader->requireString('jid'),
                 name: $rowReader->requireString('name'),
                 lastMessageTime: new \DateTimeImmutable($rowReader->requireString('last_message_time')),

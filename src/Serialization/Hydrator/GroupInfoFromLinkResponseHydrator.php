@@ -14,7 +14,7 @@ final class GroupInfoFromLinkResponseHydrator implements HydratorInterface
     public function hydrate(array $payload): GroupInfoFromLinkResponse
     {
         $reader = new ArrayReader($payload);
-        $res = new ArrayReader($reader->requireObject('results'), '$.results');
+        $res    = new ArrayReader($reader->requireObject('results'), '$.results');
 
         return new GroupInfoFromLinkResponse(
             $reader->requireString('code'),

@@ -17,16 +17,16 @@ final class SendClientTest extends TestCase
     public function testSendText(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'message_id' => 'abc',
-                'status' => 'sent',
+                'status'     => 'sent',
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = $this->client($transport, $psr17);
+        $client    = $this->client($transport, $psr17);
 
         $dto = $client->text('jid@s.whatsapp.net', 'hello');
 
@@ -37,16 +37,16 @@ final class SendClientTest extends TestCase
     public function testSendPoll(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'message_id' => 'poll',
-                'status' => 'sent',
+                'status'     => 'sent',
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = $this->client($transport, $psr17);
+        $client    = $this->client($transport, $psr17);
 
         $client->poll('jid@s.whatsapp.net', 'Choose', 'one', 'two');
 
@@ -58,16 +58,16 @@ final class SendClientTest extends TestCase
     public function testChatPresence(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'message_id' => 'presence',
-                'status' => 'sent',
+                'status'     => 'sent',
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = $this->client($transport, $psr17);
+        $client    = $this->client($transport, $psr17);
 
         $client->chatPresence('jid@s.whatsapp.net', \BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState::Composing);
 

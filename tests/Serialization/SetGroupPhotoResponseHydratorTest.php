@@ -12,12 +12,12 @@ final class SetGroupPhotoResponseHydratorTest extends TestCase
     public function testHydratesGroupPhoto(): void
     {
         $hydrator = new SetGroupPhotoResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success update group photo',
             'results' => [
                 'picture_id' => '1647874123',
-                'message' => 'Success update group photo',
+                'message'    => 'Success update group photo',
             ],
         ]);
 

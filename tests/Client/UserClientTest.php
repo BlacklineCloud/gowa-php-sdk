@@ -22,19 +22,19 @@ final class UserClientTest extends TestCase
     public function testInfoBuildsRequest(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success get info',
             'results' => [
-                'pushname' => 'Alice',
-                'verified' => 1,
-                'lid' => null,
+                'pushname'      => 'Alice',
+                'verified'      => 1,
+                'lid'           => null,
                 'business_name' => null,
             ],
         ], JSON_THROW_ON_ERROR);
-        $response = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $response  = new Response(200, ['Content-Type' => 'application/json'], $body);
         $transport = new FakeTransport($response);
-        $config = new ClientConfig('https://api.example.test', 'u', 'p');
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
 
         $client = new UserClient(
             $config,

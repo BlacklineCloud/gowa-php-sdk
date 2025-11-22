@@ -25,8 +25,8 @@ final class Psr18TransportTest extends TestCase
 {
     public function testRetryOn429ThrowsRateLimit(): void
     {
-        $client = $this->mockClient(429);
-        $config = new ClientConfig('https://api.example.test', 'u', 'p');
+        $client    = $this->mockClient(429);
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
         $transport = new Psr18Transport(
             $client,
             $config,
@@ -43,8 +43,8 @@ final class Psr18TransportTest extends TestCase
 
     public function test401ThrowsAuthException(): void
     {
-        $client = $this->mockClient(401);
-        $config = new ClientConfig('https://api.example.test', 'u', 'p');
+        $client    = $this->mockClient(401);
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
         $transport = new Psr18Transport($client, $config, new NullLogger());
 
         $this->expectException(AuthenticationException::class);
@@ -53,7 +53,7 @@ final class Psr18TransportTest extends TestCase
 
     private function mockClient(int $status): ClientInterface
     {
-        return new class($status) implements ClientInterface {
+        return new class ($status) implements ClientInterface {
             public function __construct(private int $status)
             {
             }

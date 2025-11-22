@@ -12,12 +12,12 @@ final class ClientConfigBuilderTest extends TestCase
     public function testBuildsFromArray(): void
     {
         $config = ClientConfigBuilder::fromArray([
-            'base_uri' => 'https://api.example.test',
-            'username' => 'user',
-            'password' => 'pass',
-            'base_path' => '/gowa',
+            'base_uri'           => 'https://api.example.test',
+            'username'           => 'user',
+            'password'           => 'pass',
+            'base_path'          => '/gowa',
             'request_timeout_ms' => '5000',
-            'max_retries' => '5',
+            'max_retries'        => '5',
         ]);
 
         self::assertSame('https://api.example.test', $config->baseUri);

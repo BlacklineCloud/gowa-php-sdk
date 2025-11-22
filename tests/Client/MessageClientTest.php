@@ -18,17 +18,17 @@ final class MessageClientTest extends TestCase
     public function testRevoke(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'ok',
             'results' => [
-                'status' => 'success',
-                'message' => 'revoked',
+                'status'     => 'success',
+                'message'    => 'revoked',
                 'message_id' => 'mid',
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = new MessageClient(
+        $client    = new MessageClient(
             new ClientConfig('https://api.example.test', 'u', 'p'),
             $transport,
             $psr17,

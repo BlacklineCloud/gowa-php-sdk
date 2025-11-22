@@ -12,8 +12,8 @@ final class AvatarResponseHydratorTest extends TestCase
     public function testHydratesAvatar(): void
     {
         $hydrator = new AvatarResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'avatar' => 'http://example.test/avatar.png',

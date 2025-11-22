@@ -12,12 +12,12 @@ final class LoginResponseHydratorTest extends TestCase
     public function testHydrates(): void
     {
         $hydrator = new LoginResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'qr_duration' => 30,
-                'qr_link' => 'http://example.test/qr.png',
+                'qr_link'     => 'http://example.test/qr.png',
             ],
         ]);
 

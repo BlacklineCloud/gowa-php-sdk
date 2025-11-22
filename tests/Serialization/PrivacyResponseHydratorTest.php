@@ -12,14 +12,14 @@ final class PrivacyResponseHydratorTest extends TestCase
     public function testHydratesPrivacy(): void
     {
         $hydrator = new PrivacyResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success get privacy',
             'results' => [
-                'group_add' => 'all',
-                'last_seen' => null,
-                'status' => 'all',
-                'profile' => 'contacts',
+                'group_add'     => 'all',
+                'last_seen'     => null,
+                'status'        => 'all',
+                'profile'       => 'contacts',
                 'read_receipts' => 'all',
             ],
         ]);

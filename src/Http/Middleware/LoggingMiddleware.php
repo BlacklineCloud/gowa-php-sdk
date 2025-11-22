@@ -17,16 +17,16 @@ final class LoggingMiddleware implements MiddlewareInterface
 
     public function handle(RequestInterface $request, callable $next): ResponseInterface
     {
-        $start = microtime(true);
-        $response = $next($request);
+        $start      = microtime(true);
+        $response   = $next($request);
         $durationMs = (int) ((microtime(true) - $start) * 1000);
 
         $this->logger->info('HTTP request', [
-            'method' => $request->getMethod(),
-            'uri' => (string) $request->getUri(),
-            'status' => $response->getStatusCode(),
-            'duration_ms' => $durationMs,
-            'correlation_id' => $request->getHeaderLine('X-Correlation-ID'),
+            'method'          => $request->getMethod(),
+            'uri'             => (string) $request->getUri(),
+            'status'          => $response->getStatusCode(),
+            'duration_ms'     => $durationMs,
+            'correlation_id'  => $request->getHeaderLine('X-Correlation-ID'),
             'idempotency_key' => $request->getHeaderLine('Idempotency-Key'),
         ]);
 

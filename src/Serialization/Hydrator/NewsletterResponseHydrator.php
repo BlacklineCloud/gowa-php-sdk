@@ -13,14 +13,14 @@ final class NewsletterResponseHydrator implements HydratorInterface
     /** @param array<int|string,mixed> $payload */
     public function hydrate(array $payload): NewsletterResponse
     {
-        $r = new ArrayReader($payload);
+        $r       = new ArrayReader($payload);
         $results = new ArrayReader($r->requireObject('results'), '$.results');
-        $data = $results->requireObject('data');
+        $data    = $results->requireObject('data');
 
         $items = [];
         foreach ($data as $row) {
-            $rowR = new ArrayReader((array) $row, '$.results.data');
-            $state = new ArrayReader((array) $rowR->requireObject('state'), '$.results.data.state');
+            $rowR   = new ArrayReader((array) $row, '$.results.data');
+            $state  = new ArrayReader((array) $rowR->requireObject('state'), '$.results.data.state');
             $thread = new ArrayReader((array) $rowR->requireObject('thread_metadata'), '$.results.data.thread_metadata');
 
             $items[] = new Newsletter(

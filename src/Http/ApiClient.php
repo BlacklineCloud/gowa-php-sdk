@@ -6,11 +6,11 @@ namespace BlacklineCloud\SDK\GowaPHP\Http;
 
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Contracts\Http\HttpTransportInterface;
-use BlacklineCloud\SDK\GowaPHP\Serialization\Json;
 use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Json;
 use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 abstract class ApiClient
 {
@@ -50,7 +50,7 @@ abstract class ApiClient
      */
     private function send(string $method, string $path, array $query, ?array $body, array $headers): array
     {
-        $uri = $this->buildUri($path, $query);
+        $uri     = $this->buildUri($path, $query);
         $request = $this->requestFactory->createRequest($method, $uri)
             ->withHeader('Accept', 'application/json');
 
@@ -60,7 +60,7 @@ abstract class ApiClient
 
         if ($body !== null) {
             $payload = Json::encode($body);
-            $stream = $this->streamFactory->createStream($payload);
+            $stream  = $this->streamFactory->createStream($payload);
             $request = $request
                 ->withHeader('Content-Type', 'application/json')
                 ->withBody($stream);
@@ -74,7 +74,7 @@ abstract class ApiClient
     private function decodeJson(ResponseInterface $response): array
     {
         $contents = (string) $response->getBody();
-        $decoded = Json::decode($contents);
+        $decoded  = Json::decode($contents);
         if (!\is_array($decoded)) {
             throw new ValidationException('Expected JSON object');
         }
@@ -85,15 +85,15 @@ abstract class ApiClient
     /** @param array<string,int|string|bool> $query */
     private function buildUri(string $path, array $query): string
     {
-        $base = rtrim($this->config->baseUri, '/');
+        $base     = rtrim($this->config->baseUri, '/');
         $basePath = $this->config->basePath ? '/' . trim($this->config->basePath, '/') : '';
-        $url = $base . $basePath . '/' . ltrim($path, '/');
+        $url      = $base . $basePath . '/' . ltrim($path, '/');
         if ($query !== []) {
             $normalized = [];
             foreach ($query as $key => $value) {
                 $normalized[$key] = match (true) {
                     \is_bool($value) => $value ? 'true' : 'false',
-                    default => (string) $value,
+                    default          => (string) $value,
                 };
             }
             $url .= '?' . http_build_query($normalized);

@@ -18,17 +18,17 @@ final class NewsletterClientTest extends TestCase
     public function testListNewsletters(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success get list newsletter',
             'results' => [
                 'data' => [
                     [
-                        'id' => 'nid',
-                        'state' => ['type' => 'active'],
+                        'id'              => 'nid',
+                        'state'           => ['type' => 'active'],
                         'thread_metadata' => [
-                            'name' => ['text' => 'Channel'],
-                            'description' => ['text' => 'desc'],
+                            'name'              => ['text' => 'Channel'],
+                            'description'       => ['text' => 'desc'],
                             'subscribers_count' => '1',
                         ],
                     ],
@@ -36,7 +36,7 @@ final class NewsletterClientTest extends TestCase
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = new NewsletterClient(
+        $client    = new NewsletterClient(
             new ClientConfig('https://api.example.test', 'u', 'p'),
             $transport,
             $psr17,

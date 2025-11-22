@@ -6,9 +6,9 @@ namespace BlacklineCloud\SDK\GowaPHP\Domain\Enum;
 
 enum PresenceState: string
 {
-    case Available = 'available';
+    case Available   = 'available';
     case Unavailable = 'unavailable';
-    case Composing = 'composing';
-    case Recording = 'recording';
-    case Paused = 'paused';
+    case Composing   = 'composing';
+    case Recording   = 'recording';
+    case Paused      = 'paused';
 }

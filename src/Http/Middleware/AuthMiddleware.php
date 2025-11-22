@@ -17,7 +17,7 @@ final class AuthMiddleware implements MiddlewareInterface
 
     public function handle(RequestInterface $request, callable $next): ResponseInterface
     {
-        $auth = base64_encode($this->config->username . ':' . $this->config->password);
+        $auth    = base64_encode($this->config->username . ':' . $this->config->password);
         $request = $request
             ->withHeader('Authorization', 'Basic ' . $auth)
             ->withHeader('User-Agent', $this->config->userAgent ?? 'gowa-php-sdk');

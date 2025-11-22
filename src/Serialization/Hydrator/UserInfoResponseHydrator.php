@@ -13,8 +13,8 @@ final class UserInfoResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): UserInfoResponse
     {
-        $reader = new ArrayReader($payload);
-        $code = $reader->requireString('code');
+        $reader  = new ArrayReader($payload);
+        $code    = $reader->requireString('code');
         $message = $reader->requireString('message');
         $results = new ArrayReader($reader->requireObject('results'), '$.results');
 

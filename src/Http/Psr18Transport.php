@@ -36,7 +36,7 @@ class Psr18Transport implements HttpTransportInterface
         $pipeline = array_reduce(
             array_reverse($this->middleware),
             fn (callable $next, MiddlewareInterface $middleware) => fn (RequestInterface $req) => $middleware->handle($req, $next),
-            fn (RequestInterface $req) => $this->doSend($req)
+            fn (RequestInterface $req)                           => $this->doSend($req)
         );
 
         return $pipeline($request);
@@ -49,7 +49,7 @@ class Psr18Transport implements HttpTransportInterface
         } catch (ClientExceptionInterface $e) {
             $this->logger->error('Transport error', [
                 'exception' => $e,
-                'base_uri' => $this->config->baseUri,
+                'base_uri'  => $this->config->baseUri,
             ]);
             throw new TransportException($e->getMessage(), previous: $e);
         }

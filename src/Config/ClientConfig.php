@@ -46,17 +46,17 @@ final readonly class ClientConfig
     public function with(array $overrides): self
     {
         return new self(
-            baseUri: $overrides['baseUri'] ?? $this->baseUri,
-            username: $overrides['username'] ?? $this->username,
-            password: $overrides['password'] ?? $this->password,
-            requestTimeoutMs: $overrides['requestTimeoutMs'] ?? $this->requestTimeoutMs,
-            connectTimeoutMs: $overrides['connectTimeoutMs'] ?? $this->connectTimeoutMs,
-            maxRetries: $overrides['maxRetries'] ?? $this->maxRetries,
+            baseUri: $overrides['baseUri']                       ?? $this->baseUri,
+            username: $overrides['username']                     ?? $this->username,
+            password: $overrides['password']                     ?? $this->password,
+            requestTimeoutMs: $overrides['requestTimeoutMs']     ?? $this->requestTimeoutMs,
+            connectTimeoutMs: $overrides['connectTimeoutMs']     ?? $this->connectTimeoutMs,
+            maxRetries: $overrides['maxRetries']                 ?? $this->maxRetries,
             retryBackoffFactor: $overrides['retryBackoffFactor'] ?? $this->retryBackoffFactor,
             userAgent: array_key_exists('userAgent', $overrides) ? $overrides['userAgent'] : $this->userAgent,
             basePath: array_key_exists('basePath', $overrides) ? $overrides['basePath'] : $this->basePath,
             clock: $overrides['clock'] ?? $this->clock,
-            uuid: $overrides['uuid'] ?? $this->uuid,
+            uuid: $overrides['uuid']   ?? $this->uuid,
         );
     }
 

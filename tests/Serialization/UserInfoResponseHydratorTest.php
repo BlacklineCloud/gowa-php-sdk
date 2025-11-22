@@ -12,13 +12,13 @@ final class UserInfoResponseHydratorTest extends TestCase
     public function testHydratesUserInfo(): void
     {
         $hydrator = new UserInfoResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success get info',
             'results' => [
-                'pushname' => 'Alice',
-                'verified' => 1,
-                'lid' => '123@lid',
+                'pushname'      => 'Alice',
+                'verified'      => 1,
+                'lid'           => '123@lid',
                 'business_name' => 'Alice Store',
             ],
         ]);

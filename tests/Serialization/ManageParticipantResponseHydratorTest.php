@@ -12,14 +12,14 @@ final class ManageParticipantResponseHydratorTest extends TestCase
     public function testHydratesManageParticipants(): void
     {
         $hydrator = new ManageParticipantResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success get list groups',
             'results' => [
                 [
                     'participant' => '6289987391723@s.whatsapp.net',
-                    'status' => 'success',
-                    'message' => 'Participant added',
+                    'status'      => 'success',
+                    'message'     => 'Participant added',
                 ],
             ],
         ]);

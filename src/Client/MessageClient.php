@@ -6,11 +6,11 @@ namespace BlacklineCloud\SDK\GowaPHP\Client;
 
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Contracts\Http\HttpTransportInterface;
+use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GenericResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\MessageActionResponse;
 use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
-use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\MessageActionResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GenericResponseHydrator;
-use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GenericResponse;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\MessageActionResponseHydrator;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 

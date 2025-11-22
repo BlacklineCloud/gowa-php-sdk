@@ -12,12 +12,12 @@ final class GroupInviteLinkResponseHydratorTest extends TestCase
     public function testHydratesInviteLink(): void
     {
         $hydrator = new GroupInviteLinkResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success get group invite link',
             'results' => [
                 'invite_link' => 'https://chat.whatsapp.com/ABC123',
-                'group_id' => '120363025982934543@g.us',
+                'group_id'    => '120363025982934543@g.us',
             ],
         ]);
 

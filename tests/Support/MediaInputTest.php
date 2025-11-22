@@ -14,7 +14,7 @@ final class MediaInputTest extends TestCase
     public function testFromPath(): void
     {
         $factory = new Psr17Factory();
-        $tmp = tempnam(sys_get_temp_dir(), 'media');
+        $tmp     = tempnam(sys_get_temp_dir(), 'media');
         file_put_contents($tmp, 'hello');
 
         $media = MediaInput::fromPath($tmp, $factory, 'text/plain');

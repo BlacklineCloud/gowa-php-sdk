@@ -32,10 +32,10 @@ final class WebhookEventHydrator
 
         // Receipts
         if (($payload['event'] ?? null) === 'message.ack') {
-            $res     = new ArrayReader($reader->requireObject('payload'), '$.payload');
+            $res = new ArrayReader($reader->requireObject('payload'), '$.payload');
             /** @var array<int|string,string> $idsRaw */
-            $idsRaw = $res->requireObject('ids');
-            $ids = array_values(array_map(static fn (string $id): string => $id, $idsRaw));
+            $idsRaw  = $res->requireObject('ids');
+            $ids     = array_values(array_map(static fn (string $id): string => $id, $idsRaw));
             $receipt = new ReceiptPayload(
                 chatId: $res->requireString('chat_id'),
                 from: $res->requireString('from'),
@@ -50,11 +50,11 @@ final class WebhookEventHydrator
 
         // Group participant events
         if (($payload['event'] ?? null) === 'group.participants') {
-            $res   = new ArrayReader($reader->requireObject('payload'), '$.payload');
+            $res = new ArrayReader($reader->requireObject('payload'), '$.payload');
             /** @var array<int|string,string> $jidsRaw */
             $jidsRaw = $res->requireObject('jids');
-            $jids = array_values(array_map(static fn (string $jid): string => $jid, $jidsRaw));
-            $group = new GroupParticipantsPayload(
+            $jids    = array_values(array_map(static fn (string $jid): string => $jid, $jidsRaw));
+            $group   = new GroupParticipantsPayload(
                 chatId: $res->requireString('chat_id'),
                 type: $res->requireString('type'),
                 jids: $jids,
@@ -71,9 +71,9 @@ final class WebhookEventHydrator
                 context: $context,
                 protocol: new ProtocolPayload(
                     action: $action,
-                    revokedMessageId: isset($payload['revoked_message_id']) && \is_string($payload['revoked_message_id']) ? $payload['revoked_message_id'] : null,
+                    revokedMessageId: isset($payload['revoked_message_id'])   && \is_string($payload['revoked_message_id']) ? $payload['revoked_message_id'] : null,
                     originalMessageId: isset($payload['original_message_id']) && \is_string($payload['original_message_id']) ? $payload['original_message_id'] : null,
-                    editedText: isset($payload['edited_text']) && \is_string($payload['edited_text']) ? $payload['edited_text'] : null,
+                    editedText: isset($payload['edited_text'])                && \is_string($payload['edited_text']) ? $payload['edited_text'] : null,
                 ),
             );
         }

@@ -14,12 +14,12 @@ final class GroupParticipantsResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): GroupParticipantsResponse
     {
-        $reader = new ArrayReader($payload);
-        $resReader = new ArrayReader($reader->requireObject('results'), '$.results');
+        $reader          = new ArrayReader($payload);
+        $resReader       = new ArrayReader($reader->requireObject('results'), '$.results');
         $participantsRaw = $resReader->requireObject('participants');
-        $participants = [];
+        $participants    = [];
         foreach ($participantsRaw as $row) {
-            $rowReader = new ArrayReader((array) $row, '$.results.participants');
+            $rowReader      = new ArrayReader((array) $row, '$.results.participants');
             $participants[] = new GroupParticipant(
                 jid: $rowReader->requireString('jid'),
                 phoneNumber: $rowReader->requireString('phone_number'),

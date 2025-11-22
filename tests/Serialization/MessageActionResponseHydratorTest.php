@@ -12,12 +12,12 @@ final class MessageActionResponseHydratorTest extends TestCase
     public function testHydratesMessageAction(): void
     {
         $hydrator = new MessageActionResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Message revoked successfully',
             'results' => [
-                'status' => 'success',
-                'message' => 'Message revoked',
+                'status'     => 'success',
+                'message'    => 'Message revoked',
                 'message_id' => '3EB0B430B6F8F1D0E053AC120E0A9E5C'
             ],
         ]);

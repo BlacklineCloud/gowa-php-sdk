@@ -16,14 +16,14 @@ final class ChatMessagesResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): ChatMessagesResponse
     {
-        $reader = new ArrayReader($payload);
-        $res = new ArrayReader($reader->requireObject('results'), '$.results');
+        $reader     = new ArrayReader($payload);
+        $res        = new ArrayReader($reader->requireObject('results'), '$.results');
         $pagination = $this->pagination($res->requireObject('pagination'));
-        $chatInfo = $this->chat(new ArrayReader($res->requireObject('chat_info'), '$.results.chat_info'));
+        $chatInfo   = $this->chat(new ArrayReader($res->requireObject('chat_info'), '$.results.chat_info'));
 
         $messages = [];
         foreach ($res->requireObject('data') as $row) {
-            $r = new ArrayReader((array) $row, '$.results.data');
+            $r          = new ArrayReader((array) $row, '$.results.data');
             $messages[] = new ChatMessage(
                 id: $r->requireString('id'),
                 chatJid: $r->requireString('chat_jid'),

@@ -12,8 +12,8 @@ final class GenericResponseHydratorTest extends TestCase
     public function testHydratesGeneric(): void
     {
         $hydrator = new GenericResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'OK',
             'results' => null,
         ]);

@@ -12,8 +12,8 @@ final class DevicesResponseHydratorTest extends TestCase
     public function testHydratesDevices(): void
     {
         $hydrator = new DevicesResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'devices' => [

@@ -20,17 +20,17 @@ final class AppClientTest extends TestCase
     public function testLoginUsesBaseUri(): void
     {
         $psr17 = new Psr17Factory();
-        $json = json_encode([
-            'code' => 'SUCCESS',
+        $json  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'qr_duration' => 30,
-                'qr_link' => 'http://localhost/qr.png',
+                'qr_link'     => 'http://localhost/qr.png',
             ],
         ], JSON_THROW_ON_ERROR);
-        $response = new Response(200, ['Content-Type' => 'application/json'], $json);
+        $response  = new Response(200, ['Content-Type' => 'application/json'], $json);
         $transport = new FakeTransport($response);
-        $config = new ClientConfig('https://api.example.test', 'u', 'p', basePath: '/gowa');
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p', basePath: '/gowa');
 
         $client = new AppClient(
             $config,

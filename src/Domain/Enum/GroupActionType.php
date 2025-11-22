@@ -6,8 +6,8 @@ namespace BlacklineCloud\SDK\GowaPHP\Domain\Enum;
 
 enum GroupActionType: string
 {
-    case Join = 'join';
-    case Leave = 'leave';
+    case Join    = 'join';
+    case Leave   = 'leave';
     case Promote = 'promote';
-    case Demote = 'demote';
+    case Demote  = 'demote';
 }

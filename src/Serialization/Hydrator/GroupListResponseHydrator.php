@@ -14,15 +14,15 @@ final class GroupListResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): GroupListResponse
     {
-        $r = new ArrayReader($payload);
+        $r       = new ArrayReader($payload);
         $results = new ArrayReader($r->requireObject('results'), '$.results');
-        $data = $results->requireObject('data');
-        $groups = [];
+        $data    = $results->requireObject('data');
+        $groups  = [];
         foreach ($data as $row) {
-            $rowR = new ArrayReader((array) $row, '$.results.data');
+            $rowR         = new ArrayReader((array) $row, '$.results.data');
             $participants = [];
             foreach ((array) ($rowR->optionalObject('Participants') ?? []) as $p) {
-                $pR = new ArrayReader((array) $p, '$.results.data.Participants');
+                $pR             = new ArrayReader((array) $p, '$.results.data.Participants');
                 $participants[] = new GroupParticipant(
                     jid: $pR->requireString('JID'),
                     phoneNumber: $pR->requireString('JID'),
@@ -46,16 +46,16 @@ final class GroupListResponseHydrator implements HydratorInterface
                 topicSetAt: $this->optionalDate($rowR->optionalString('TopicSetAt')),
                 topicSetBy: $rowR->optionalString('TopicSetBy'),
                 topicDeleted: $rowR->optionalBool('TopicDeleted') ?? false,
-                isLocked: $rowR->optionalBool('IsLocked') ?? false,
-                isAnnounce: $rowR->optionalBool('IsAnnounce') ?? false,
+                isLocked: $rowR->optionalBool('IsLocked')         ?? false,
+                isAnnounce: $rowR->optionalBool('IsAnnounce')     ?? false,
                 announceVersionId: $rowR->optionalString('AnnounceVersionID'),
                 isEphemeral: $rowR->optionalBool('IsEphemeral') ?? false,
                 disappearingTimer: $disappearingTimer,
                 isIncognito: $rowR->optionalBool('IsIncognito') ?? false,
-                isParent: $rowR->optionalBool('IsParent') ?? false,
+                isParent: $rowR->optionalBool('IsParent')       ?? false,
                 defaultMembershipApprovalMode: $rowR->optionalString('DefaultMembershipApprovalMode'),
                 linkedParentJid: $rowR->optionalString('LinkedParentJID'),
-                isDefaultSubGroup: $rowR->optionalBool('IsDefaultSubGroup') ?? false,
+                isDefaultSubGroup: $rowR->optionalBool('IsDefaultSubGroup')           ?? false,
                 isJoinApprovalRequired: $rowR->optionalBool('IsJoinApprovalRequired') ?? false,
                 groupCreated: $this->optionalDate($rowR->optionalString('GroupCreated')),
                 participantVersionId: $rowR->optionalString('ParticipantVersionID'),

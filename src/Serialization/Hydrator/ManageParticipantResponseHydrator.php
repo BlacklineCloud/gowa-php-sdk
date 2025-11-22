@@ -13,9 +13,9 @@ final class ManageParticipantResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): ManageParticipantResponse
     {
-        $reader = new ArrayReader($payload);
+        $reader     = new ArrayReader($payload);
         $resultsRaw = $reader->requireObject('results');
-        $results = [];
+        $results    = [];
         foreach ($resultsRaw as $row) {
             $rowReader = new ArrayReader((array) $row, '$.results');
             $results[] = new ManageParticipantResult(

@@ -13,7 +13,7 @@ final class PinChatResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): PinChatResponse
     {
-        $r = new ArrayReader($payload);
+        $r   = new ArrayReader($payload);
         $res = new ArrayReader($r->requireObject('results'), '$.results');
 
         return new PinChatResponse(

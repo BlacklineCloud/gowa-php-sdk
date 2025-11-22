@@ -12,13 +12,13 @@ final class BusinessProfileResponseHydratorTest extends TestCase
     public function testHydratesBusinessProfile(): void
     {
         $hydrator = new BusinessProfileResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success get business profile',
             'results' => [
-                'description' => 'We sell things',
-                'email' => 'contact@example.test',
-                'website' => 'https://example.test',
+                'description'    => 'We sell things',
+                'email'          => 'contact@example.test',
+                'website'        => 'https://example.test',
                 'business_hours' => '09:00-18:00',
             ],
         ]);

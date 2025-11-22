@@ -25,15 +25,15 @@ final class GroupClientTest extends TestCase
     public function testAddParticipantsVariadic(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 ['participant' => 'a@s.whatsapp.net', 'status' => 'success', 'message' => 'Participant added'],
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = new GroupClient(
+        $client    = new GroupClient(
             new ClientConfig('https://api.example.test', 'u', 'p'),
             $transport,
             $psr17,

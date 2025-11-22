@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace BlacklineCloud\SDK\GowaPHP\Support\Media;
 
 use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 
 final readonly class MediaInput
 {
@@ -47,9 +47,9 @@ final readonly class MediaInput
             throw new ValidationException('Media path is not readable: ' . $path);
         }
 
-        $stream = $factory->createStreamFromFile($path, 'r');
+        $stream   = $factory->createStreamFromFile($path, 'r');
         $filename = basename($path);
-        $mime = $mimeType ?? self::detectMime($path) ?? 'application/octet-stream';
+        $mime     = $mimeType ?? self::detectMime($path) ?? 'application/octet-stream';
 
         return new self($stream, $filename, $mime);
     }
@@ -65,7 +65,7 @@ final readonly class MediaInput
 
         if (class_exists(\finfo::class)) {
             $finfo = new \finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->file($path);
+            $mime  = $finfo->file($path);
             if (is_string($mime) && $mime !== '') {
                 return $mime;
             }

@@ -14,10 +14,10 @@ final class CircuitBreakerMiddlewareTest extends TestCase
 {
     public function testDelegatesThroughBreaker(): void
     {
-        $psr17 = new Psr17Factory();
+        $psr17   = new Psr17Factory();
         $request = $psr17->createRequest('GET', 'https://example.test/foo');
 
-        $breaker = new class implements CircuitBreakerInterface {
+        $breaker = new class () implements CircuitBreakerInterface {
             public bool $called = false;
             public function call(string $key, callable $action): mixed
             {
@@ -26,7 +26,7 @@ final class CircuitBreakerMiddlewareTest extends TestCase
             }
         };
 
-        $mw = new CircuitBreakerMiddleware($breaker);
+        $mw       = new CircuitBreakerMiddleware($breaker);
         $response = $mw->handle($request, static fn () => new Response(200));
 
         self::assertTrue($breaker->called);

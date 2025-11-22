@@ -12,14 +12,14 @@ final class PinChatResponseHydratorTest extends TestCase
     public function testHydratesPinChat(): void
     {
         $hydrator = new PinChatResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Chat pinned successfully',
             'results' => [
-                'status' => 'success',
-                'message' => 'Chat pinned successfully',
+                'status'   => 'success',
+                'message'  => 'Chat pinned successfully',
                 'chat_jid' => '6289685028129@s.whatsapp.net',
-                'pinned' => true,
+                'pinned'   => true,
             ],
         ]);
 

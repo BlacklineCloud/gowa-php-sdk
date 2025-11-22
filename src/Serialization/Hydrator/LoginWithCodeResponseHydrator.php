@@ -12,7 +12,7 @@ final class LoginWithCodeResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): LoginWithCodeResponse
     {
-        $r = new ArrayReader($payload);
+        $r       = new ArrayReader($payload);
         $results = new ArrayReader($r->requireObject('results'), '$.results');
 
         return new LoginWithCodeResponse(

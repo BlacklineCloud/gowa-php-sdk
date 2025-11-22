@@ -13,14 +13,14 @@ final class WebhookEventHydratorTest extends TestCase
     {
         $payload = [
             'sender_id' => '123',
-            'chat_id' => '123',
-            'from' => '123@s.whatsapp.net',
+            'chat_id'   => '123',
+            'from'      => '123@s.whatsapp.net',
             'timestamp' => '2024-01-15T10:30:00Z',
-            'pushname' => 'Alice',
-            'message' => [
-                'text' => 'Hello',
-                'id' => 'mid',
-                'replied_id' => null,
+            'pushname'  => 'Alice',
+            'message'   => [
+                'text'           => 'Hello',
+                'id'             => 'mid',
+                'replied_id'     => null,
                 'quoted_message' => null,
             ],
         ];
@@ -35,17 +35,17 @@ final class WebhookEventHydratorTest extends TestCase
     {
         $payload = [
             'sender_id' => 's',
-            'chat_id' => 'c',
-            'from' => 'f',
+            'chat_id'   => 'c',
+            'from'      => 'f',
             'timestamp' => '2024-01-15T10:30:00Z',
-            'event' => 'message.ack',
-            'payload' => [
-                'chat_id' => 'g',
-                'from' => 'f in g',
-                'ids' => ['id1'],
-                'receipt_type' => 'delivered',
+            'event'     => 'message.ack',
+            'payload'   => [
+                'chat_id'                  => 'g',
+                'from'                     => 'f in g',
+                'ids'                      => ['id1'],
+                'receipt_type'             => 'delivered',
                 'receipt_type_description' => 'delivered desc',
-                'sender_id' => 'sid',
+                'sender_id'                => 'sid',
             ],
         ];
 
@@ -59,14 +59,14 @@ final class WebhookEventHydratorTest extends TestCase
     {
         $payload = [
             'sender_id' => 's',
-            'chat_id' => 'c',
-            'from' => 'f',
+            'chat_id'   => 'c',
+            'from'      => 'f',
             'timestamp' => '2024-01-15T10:30:00Z',
-            'event' => 'group.participants',
-            'payload' => [
+            'event'     => 'group.participants',
+            'payload'   => [
                 'chat_id' => 'g',
-                'type' => 'join',
-                'jids' => ['a@s.whatsapp.net'],
+                'type'    => 'join',
+                'jids'    => ['a@s.whatsapp.net'],
             ],
         ];
 

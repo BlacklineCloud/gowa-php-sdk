@@ -20,7 +20,7 @@ final class ClientConfigTest extends TestCase
 
     public function testWithCreatesNewInstance(): void
     {
-        $config = new ClientConfig('https://api.example.test', 'user', 'pass');
+        $config  = new ClientConfig('https://api.example.test', 'user', 'pass');
         $updated = $config->with(['maxRetries' => 5]);
 
         self::assertSame(2, $config->maxRetries);

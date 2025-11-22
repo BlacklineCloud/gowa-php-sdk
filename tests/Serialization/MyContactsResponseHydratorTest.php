@@ -12,8 +12,8 @@ final class MyContactsResponseHydratorTest extends TestCase
     public function testHydratesContacts(): void
     {
         $hydrator = new MyContactsResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success get list contacts',
             'results' => [
                 'data' => [

@@ -12,12 +12,12 @@ final class SendResponseHydratorTest extends TestCase
     public function testHydrates(): void
     {
         $hydrator = new SendResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success',
             'results' => [
                 'message_id' => 'ABC',
-                'status' => 'sent',
+                'status'     => 'sent',
             ],
         ]);
 

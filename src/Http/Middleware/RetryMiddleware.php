@@ -22,7 +22,7 @@ final class RetryMiddleware implements MiddlewareInterface
     public function handle(RequestInterface $request, callable $next): ResponseInterface
     {
         $attempt = 0;
-        $delay = 0;
+        $delay   = 0;
 
         while (true) {
             if ($delay > 0) {

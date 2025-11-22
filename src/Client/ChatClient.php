@@ -46,7 +46,7 @@ final class ChatClient extends ApiClient
     public function messages(string $chatJid, int $limit = 50, int $offset = 0): ChatMessagesResponse
     {
         return $this->messagesHydrator->hydrate($this->get("/chat/{$chatJid}/messages", [
-            'limit' => $limit,
+            'limit'  => $limit,
             'offset' => $offset,
         ]));
     }

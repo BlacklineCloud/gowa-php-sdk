@@ -51,7 +51,7 @@ final class GroupClient extends ApiClient
     public function create(string $subject, string ...$participants): CreateGroupResponse
     {
         return $this->createHydrator->hydrate($this->post('/group', [
-            'subject' => $subject,
+            'subject'      => $subject,
             'participants' => $participants,
         ]));
     }
@@ -69,7 +69,7 @@ final class GroupClient extends ApiClient
     public function addParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
         return $this->manageHydrator->hydrate($this->post('/group/participants', [
-            'group_id' => $groupId,
+            'group_id'     => $groupId,
             'participants' => $participants,
         ]));
     }
@@ -77,7 +77,7 @@ final class GroupClient extends ApiClient
     public function removeParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
         return $this->manageHydrator->hydrate($this->post('/group/participants/remove', [
-            'group_id' => $groupId,
+            'group_id'     => $groupId,
             'participants' => $participants,
         ]));
     }
@@ -85,7 +85,7 @@ final class GroupClient extends ApiClient
     public function promoteParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
         return $this->manageHydrator->hydrate($this->post('/group/participants/promote', [
-            'group_id' => $groupId,
+            'group_id'     => $groupId,
             'participants' => $participants,
         ]));
     }
@@ -93,7 +93,7 @@ final class GroupClient extends ApiClient
     public function demoteParticipants(string $groupId, string ...$participants): ManageParticipantResponse
     {
         return $this->manageHydrator->hydrate($this->post('/group/participants/demote', [
-            'group_id' => $groupId,
+            'group_id'     => $groupId,
             'participants' => $participants,
         ]));
     }
@@ -117,7 +117,7 @@ final class GroupClient extends ApiClient
     {
         return $this->photoHydrator->hydrate($this->post('/group/photo', [
             'group_id' => $groupId,
-            'image' => $base64Image,
+            'image'    => $base64Image,
         ]));
     }
 
@@ -125,7 +125,7 @@ final class GroupClient extends ApiClient
     {
         return $this->genericHydrator->hydrate($this->post('/group/name', [
             'group_id' => $groupId,
-            'name' => $name,
+            'name'     => $name,
         ]));
     }
 
@@ -133,7 +133,7 @@ final class GroupClient extends ApiClient
     {
         return $this->genericHydrator->hydrate($this->post('/group/locked', [
             'group_id' => $groupId,
-            'locked' => $locked,
+            'locked'   => $locked,
         ]));
     }
 
@@ -149,7 +149,7 @@ final class GroupClient extends ApiClient
     {
         return $this->genericHydrator->hydrate($this->post('/group/topic', [
             'group_id' => $groupId,
-            'topic' => $topic,
+            'topic'    => $topic,
         ]));
     }
 
@@ -163,7 +163,7 @@ final class GroupClient extends ApiClient
     public function approveRequest(string $groupId, string ...$participants): GenericResponse
     {
         return $this->genericHydrator->hydrate($this->post('/group/participant-requests/approve', [
-            'group_id' => $groupId,
+            'group_id'     => $groupId,
             'participants' => $participants,
         ]));
     }
@@ -171,7 +171,7 @@ final class GroupClient extends ApiClient
     public function rejectRequest(string $groupId, string ...$participants): GenericResponse
     {
         return $this->genericHydrator->hydrate($this->post('/group/participant-requests/reject', [
-            'group_id' => $groupId,
+            'group_id'     => $groupId,
             'participants' => $participants,
         ]));
     }

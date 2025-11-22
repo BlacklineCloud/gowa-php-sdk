@@ -13,7 +13,7 @@ final class BusinessProfileResponseHydrator implements HydratorInterface
     /** @param array<string,mixed> $payload */
     public function hydrate(array $payload): BusinessProfileResponse
     {
-        $reader = new ArrayReader($payload);
+        $reader  = new ArrayReader($payload);
         $results = new ArrayReader($reader->requireObject('results'), '$.results');
 
         return new BusinessProfileResponse(

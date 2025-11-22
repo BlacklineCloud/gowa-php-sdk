@@ -20,29 +20,29 @@ final class ChatClientTest extends TestCase
     public function testListChats(): void
     {
         $psr17 = new Psr17Factory();
-        $body = json_encode([
-            'code' => 'SUCCESS',
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
             'message' => 'Success get chat list',
             'results' => [
                 'data' => [
                     [
-                        'jid' => 'jid@s.whatsapp.net',
-                        'name' => 'Chat',
-                        'last_message_time' => '2024-01-15T10:30:00Z',
+                        'jid'                  => 'jid@s.whatsapp.net',
+                        'name'                 => 'Chat',
+                        'last_message_time'    => '2024-01-15T10:30:00Z',
                         'ephemeral_expiration' => 0,
-                        'created_at' => '2024-01-10T08:00:00Z',
-                        'updated_at' => '2024-01-15T10:30:00Z',
+                        'created_at'           => '2024-01-10T08:00:00Z',
+                        'updated_at'           => '2024-01-15T10:30:00Z',
                     ],
                 ],
                 'pagination' => [
-                    'limit' => 25,
+                    'limit'  => 25,
                     'offset' => 0,
-                    'total' => 1,
+                    'total'  => 1,
                 ],
             ],
         ], JSON_THROW_ON_ERROR);
         $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
-        $client = new ChatClient(
+        $client    = new ChatClient(
             new ClientConfig('https://api.example.test', 'u', 'p'),
             $transport,
             $psr17,

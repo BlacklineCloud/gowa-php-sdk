@@ -12,8 +12,8 @@ final class WebhookVerifierTest extends TestCase
     public function testVerifiesSignature(): void
     {
         $payload = 'test-payload';
-        $secret = 'secret';
-        $sig = 'sha256=' . hash_hmac('sha256', $payload, $secret);
+        $secret  = 'secret';
+        $sig     = 'sha256=' . hash_hmac('sha256', $payload, $secret);
 
         $verifier = new WebhookVerifier($secret);
 

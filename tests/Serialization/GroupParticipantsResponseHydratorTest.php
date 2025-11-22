@@ -12,19 +12,19 @@ final class GroupParticipantsResponseHydratorTest extends TestCase
     public function testHydratesGroupParticipants(): void
     {
         $hydrator = new GroupParticipantsResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => 'Success getting group participants',
             'results' => [
-                'group_id' => '120363024512399999@g.us',
-                'name' => 'My Awesome Group',
+                'group_id'     => '120363024512399999@g.us',
+                'name'         => 'My Awesome Group',
                 'participants' => [
                     [
-                        'jid' => '6289987391723@s.whatsapp.net',
-                        'phone_number' => '6289987391723@s.whatsapp.net',
-                        'lid' => null,
-                        'display_name' => 'Anon',
-                        'is_admin' => true,
+                        'jid'            => '6289987391723@s.whatsapp.net',
+                        'phone_number'   => '6289987391723@s.whatsapp.net',
+                        'lid'            => null,
+                        'display_name'   => 'Anon',
+                        'is_admin'       => true,
                         'is_super_admin' => false,
                     ],
                 ],

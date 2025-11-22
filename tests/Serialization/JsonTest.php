@@ -12,7 +12,7 @@ final class JsonTest extends TestCase
     public function testEncodeDecode(): void
     {
         $payload = ['a' => 1, 'b' => ['c' => 'd']];
-        $json = Json::encode($payload);
+        $json    = Json::encode($payload);
         $decoded = Json::decode($json);
 
         self::assertSame($payload, $decoded);

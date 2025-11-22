@@ -12,15 +12,15 @@ final class LabelChatResponseHydratorTest extends TestCase
     public function testHydratesLabelChat(): void
     {
         $hydrator = new LabelChatResponseHydrator();
-        $dto = $hydrator->hydrate([
-            'code' => 'SUCCESS',
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
             'message' => "Chat labeled successfully with label 'Important'",
             'results' => [
-                'status' => 'success',
-                'message' => "Chat labeled successfully with label 'Important'",
+                'status'   => 'success',
+                'message'  => "Chat labeled successfully with label 'Important'",
                 'chat_jid' => '6289685028129@s.whatsapp.net',
                 'label_id' => 'label_123',
-                'labeled' => true,
+                'labeled'  => true,
             ],
         ]);
 
