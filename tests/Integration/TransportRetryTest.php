@@ -15,16 +15,19 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\NullLogger;
 
+final class RetryCounter
+{
+    public int $value = 0;
+}
+
 final class TransportRetryTest extends TestCase
 {
     public function testRetriesOn429(): void
     {
         $psr17   = new Psr17Factory();
-        $counter = new class () {
-            public int $value = 0;
-        };
+        $counter = new RetryCounter();
         $client = new class ($counter) implements ClientInterface {
-            public function __construct(private object $counter)
+            public function __construct(private readonly RetryCounter $counter)
             {
             }
 
