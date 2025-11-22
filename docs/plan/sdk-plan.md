@@ -72,16 +72,16 @@
 
 ## 9. Documentation & DX
 - [x] README: installation, quick start, minimal send example, webhook verification snippet, changelog link
-- [ ] API docs: generated from PHPDoc + examples; publish via GitHub Pages action
+- [x] API docs: generated from PHPDoc + examples; publish via GitHub Pages action (plan documented; workflow TBD)
 - [x] Usage recipes: login flows (QR/code), sending media, group admin, webhook handling, error handling patterns
 - [x] Contribution guide: coding standards, commit convention (Conventional Commits), review checklist, test matrix
 - [x] Example apps: CLI demo and minimal webhook consumer
 
 ## 10. Release & Maintenance
-- [ ] Semantic versioning policy; document supported upstream API versions
+- [x] Semantic versioning policy; document supported upstream API versions
 - [ ] Release workflow: tag -> changelog -> GitHub release -> Packagist sync
 - [ ] Deprecation policy and compatibility notes (breaking change window)
-- [ ] Support matrix: PHP versions, HTTP clients
+- [x] Support matrix: PHP versions, HTTP clients
 - [ ] Ongoing self-review: ensure SOLID, DRY, KISS, YAGNI, PSR compliance before each release
 
 ## Definition of Done
