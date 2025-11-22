@@ -25,7 +25,7 @@
 - [ ] Documentation & changelog correctness
   - [x] Update `CHANGELOG.md` to reflect current feature set and pending work.
   - [ ] Reconcile `docs/plan/sdk-plan.md` DoD/checkboxes with actual status or add a note linking to this hardening plan.
-  - [ ] Trim unused dev dependency (`nikic/php-parser`) or document its purpose. *(blocked: offline composer update; currently kept in composer.json)*
+  - [ ] Trim unused dev dependency (`nikic/php-parser`) or document its purpose. *(composer.json trimmed; lock refresh blocked offline — rerun `composer update --lock` when networked)*
   - [ ] Add a client factory example to README to reduce manual wiring.
 - [ ] Upstream drift automation
   - [ ] Enhance `bin/diff-openapi` + scheduled workflow to comment/open issue/PR on drift (using `peter-evans/create-issue-from-file` or similar).
