@@ -8,6 +8,7 @@ use BlacklineCloud\SDK\GowaPHP\Client\UserClient;
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\AvatarResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\BusinessProfileResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GenericResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\MyContactsResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\PrivacyResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\UserCheckResponseHydrator;
@@ -47,11 +48,47 @@ final class UserClientTest extends TestCase
             new MyContactsResponseHydrator(),
             new BusinessProfileResponseHydrator(),
             new UserCheckResponseHydrator(),
+            new GenericResponseHydrator(),
         );
 
         $dto = $client->info();
 
         self::assertSame('Alice', $dto->user->pushName);
         self::assertSame('https://api.example.test/user/info', (string) $transport->lastRequest?->getUri());
+    }
+
+    public function testChangePushName(): void
+    {
+        $psr17 = new Psr17Factory();
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
+            'message' => 'Pushname updated',
+            'results' => [
+                'status' => 'ok',
+            ],
+        ], JSON_THROW_ON_ERROR);
+        $response  = new Response(200, ['Content-Type' => 'application/json'], $body);
+        $transport = new FakeTransport($response);
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
+
+        $client = new UserClient(
+            $config,
+            $transport,
+            $psr17,
+            $psr17,
+            new UserInfoResponseHydrator(),
+            new AvatarResponseHydrator(),
+            new PrivacyResponseHydrator(),
+            new MyContactsResponseHydrator(),
+            new BusinessProfileResponseHydrator(),
+            new UserCheckResponseHydrator(),
+            new GenericResponseHydrator(),
+        );
+
+        $dto = $client->changePushName('New Name');
+
+        self::assertSame('https://api.example.test/user/pushname', (string) $transport->lastRequest?->getUri());
+        self::assertSame('New Name', json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR)['push_name'] ?? null);
+        self::assertSame('SUCCESS', $dto->code);
     }
 }

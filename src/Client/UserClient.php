@@ -8,6 +8,7 @@ use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Contracts\Http\HttpTransportInterface;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\AvatarResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\BusinessProfileResponse;
+use BlacklineCloud\SDK\GowaPHP\Domain\Dto\GenericResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\MyContactsResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\PrivacyResponse;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\UserCheckResponse;
@@ -15,6 +16,7 @@ use BlacklineCloud\SDK\GowaPHP\Domain\Dto\UserInfoResponse;
 use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\AvatarResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\BusinessProfileResponseHydrator;
+use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\GenericResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\MyContactsResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\PrivacyResponseHydrator;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\UserCheckResponseHydrator;
@@ -36,6 +38,7 @@ final class UserClient extends ApiClient
         private readonly MyContactsResponseHydrator $contactsHydrator,
         private readonly BusinessProfileResponseHydrator $businessProfileHydrator,
         private readonly UserCheckResponseHydrator $userCheckHydrator,
+        private readonly GenericResponseHydrator $genericHydrator,
     ) {
         parent::__construct($config, $transport, $requestFactory, $streamFactory);
     }
@@ -68,5 +71,12 @@ final class UserClient extends ApiClient
     public function check(string $phone): UserCheckResponse
     {
         return $this->userCheckHydrator->hydrate($this->get('/user/check', ['phone' => InputValidator::phone($phone)]));
+    }
+
+    public function changePushName(string $pushName): GenericResponse
+    {
+        return $this->genericHydrator->hydrate($this->post('/user/pushname', [
+            'push_name' => $pushName,
+        ]));
     }
 }

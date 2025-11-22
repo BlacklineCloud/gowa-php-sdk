@@ -14,7 +14,7 @@
   - [x] Update `WebhookEventHydrator` to consume numeric lat/long and validate timestamps via `Timestamp` value object.
   - [x] Extend webhook tests to cover numeric coordinates, missing optional fields, and invalid signatures.
 - [ ] Close OpenAPI coverage gaps
-  - [ ] Implement DTOs/hydrators/client methods/tests for `/user/pushname`.
+  - [x] Implement DTOs/hydrators/client methods/tests for `/user/pushname`.
   - [ ] Implement `GroupInfo` DTO/hydrator/client method/tests for `/group/info`.
   - [ ] Add participant export support: request builder, CSV response handling (stream/string), and tests for `/group/participants/export`.
   - [ ] Align fixtures/golden contract tests with new endpoints.

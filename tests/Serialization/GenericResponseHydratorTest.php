@@ -21,4 +21,16 @@ final class GenericResponseHydratorTest extends TestCase
         self::assertSame('SUCCESS', $dto->code);
         self::assertNull($dto->results);
     }
+
+    public function testHydratesArrayResults(): void
+    {
+        $hydrator = new GenericResponseHydrator();
+        $dto      = $hydrator->hydrate([
+            'code'    => 'SUCCESS',
+            'message' => 'OK',
+            'results' => ['status' => 'ok'],
+        ]);
+
+        self::assertSame(['status' => 'ok'], $dto->results);
+    }
 }

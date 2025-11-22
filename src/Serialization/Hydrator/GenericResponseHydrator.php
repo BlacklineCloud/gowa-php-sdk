@@ -13,10 +13,14 @@ final class GenericResponseHydrator implements HydratorInterface
     public function hydrate(array $payload): GenericResponse
     {
         $r = new ArrayReader($payload);
+        $results = $payload['results'] ?? null;
+        if ($results !== null && !\is_string($results) && !\is_array($results)) {
+            throw new \InvalidArgumentException('Expected results to be string|array|null');
+        }
         return new GenericResponse(
             $r->requireString('code'),
             $r->requireString('message'),
-            $r->optionalString('results'),
+            $results,
         );
     }
 }
