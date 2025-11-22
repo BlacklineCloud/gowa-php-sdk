@@ -79,8 +79,8 @@
 
 ## 10. Release & Maintenance
 - [x] Semantic versioning policy; document supported upstream API versions
-- [ ] Release workflow: tag -> changelog -> GitHub release -> Packagist sync
-- [ ] Deprecation policy and compatibility notes (breaking change window)
+- [x] Release workflow: tag -> changelog -> GitHub release -> Packagist sync (workflow added; Packagist token optional)
+- [x] Deprecation policy and compatibility notes (breaking change window)
 - [x] Support matrix: PHP versions, HTTP clients
 - [ ] Ongoing self-review: ensure SOLID, DRY, KISS, YAGNI, PSR compliance before each release
 
