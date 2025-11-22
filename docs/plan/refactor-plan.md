@@ -17,7 +17,7 @@
   - [x] Implement DTOs/hydrators/client methods/tests for `/user/pushname`.
   - [x] Implement `GroupInfo` DTO/hydrator/client method/tests for `/group/info`.
   - [x] Add participant export support: request builder, CSV response handling (stream/string), and tests for `/group/participants/export`.
-  - [ ] Align fixtures/golden contract tests with new endpoints.
+  - [x] Align fixtures/golden contract tests with new endpoints.
 - [ ] Media upload strategy
   - [x] Introduce `MediaUploadInterface` (file path, PSR-7 stream, resource) and a default adapter.
   - [x] Wire send media endpoints to accept the abstraction (preserve BC by accepting string paths).
