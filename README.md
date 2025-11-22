@@ -78,3 +78,7 @@ PHP 8.2+ (tested on 8.2/8.3/8.4).
 - Use constructor injection; keep public APIs typed (no arrays in signatures).
 - Run tests and static analysis: `composer lint && composer stan && composer psalm && composer test`.
 - See `CONTRIBUTING.md` for the self-review checklist and upgrade workflow.
+
+## Coverage
+
+CI enforces >= 90% coverage via `bin/check-coverage` (see `composer coverage`). Enable Xdebug locally to avoid warnings.
