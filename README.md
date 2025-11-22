@@ -77,3 +77,12 @@ PHP 8.2+ (tested on 8.2/8.3/8.4).
 ## Coverage
 
 CI enforces >= 90% coverage via `bin/check-coverage` (see `composer coverage`). Enable Xdebug locally to avoid warnings.
+
+### Run tests with Docker + Xdebug
+
+```bash
+docker compose -f docker-compose.dev.yml build
+# Run full suite with coverage
+docker compose -f docker-compose.dev.yml run --rm php composer test -- --coverage-clover=build/logs/clover.xml
+docker compose -f docker-compose.dev.yml run --rm php composer coverage
+```

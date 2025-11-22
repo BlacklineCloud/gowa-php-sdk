@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      XDEBUG_MODE: coverage,debug
+      XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003
+    command: tail -f /dev/null
