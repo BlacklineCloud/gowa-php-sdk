@@ -65,7 +65,7 @@
 
 ## 8. Testing Strategy
 - [x] Unit tests: value objects, serializers, signature verification, error mapping, retry policy
-- [ ] Contract tests: golden files for request/response serialization vs OpenAPI examples
+- [x] Contract tests: golden files for request/response serialization vs OpenAPI examples (initial fixture for send text)
 - [ ] Integration tests: HTTP mock server (e.g., `php-http/mock-client`); ensure retry/idempotency behavior
 - [x] Static analysis gates: PHPStan lvl max, Psalm lvl 1; 100% type coverage goal
 - [ ] Code coverage target >= 90%, track via CI badge
