@@ -47,7 +47,10 @@ class Psr18Transport implements HttpTransportInterface
         try {
             $response = $this->client->sendRequest($request);
         } catch (ClientExceptionInterface $e) {
-            $this->logger->error('Transport error', ['exception' => $e]);
+            $this->logger->error('Transport error', [
+                'exception' => $e,
+                'base_uri' => $this->config->baseUri,
+            ]);
             throw new TransportException($e->getMessage(), previous: $e);
         }
 

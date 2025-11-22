@@ -8,7 +8,7 @@ use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
 
 final class ArrayReader
 {
-    /** @param array<string,mixed> $data */
+    /** @param array<int|string,mixed> $data */
     public function __construct(private array $data, private string $path = '$')
     {
     }
@@ -70,7 +70,7 @@ final class ArrayReader
         return $value;
     }
 
-    /** @return array<string,mixed>|null */
+    /** @return array<int|string,mixed>|null */
     public function optionalObject(string $key): ?array
     {
         if (!array_key_exists($key, $this->data) || $this->data[$key] === null) {
@@ -99,7 +99,7 @@ final class ArrayReader
         return $value;
     }
 
-    /** @return array<string,mixed> */
+    /** @return array<int|string,mixed> */
     public function requireObject(string $key): array
     {
         $value = $this->requireKey($key);

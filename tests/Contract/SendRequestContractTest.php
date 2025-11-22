@@ -28,8 +28,11 @@ final class SendRequestContractTest extends TestCase
 
         $client->text('628123456789@s.whatsapp.net', 'Hello');
 
-        $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
-        $fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/send_text_request.json'), true, 512, JSON_THROW_ON_ERROR);
+        self::assertNotNull($transport->lastRequest);
+        $payload = json_decode((string) $transport->lastRequest->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        $fixtureRaw = file_get_contents(__DIR__ . '/../Fixtures/send_text_request.json');
+        self::assertNotFalse($fixtureRaw);
+        $fixture = json_decode($fixtureRaw, true, 512, JSON_THROW_ON_ERROR);
 
         self::assertSame($fixture, $payload);
     }

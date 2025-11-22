@@ -19,6 +19,11 @@ final class CircuitBreakerMiddleware implements MiddlewareInterface
     {
         $key = $request->getMethod() . ' ' . (string) $request->getUri();
 
-        return $this->breaker->call($key, static fn () => $next($request));
+        $response = $this->breaker->call($key, static fn () => $next($request));
+        if (!$response instanceof ResponseInterface) {
+            throw new \RuntimeException('Circuit breaker returned non-response value');
+        }
+
+        return $response;
     }
 }

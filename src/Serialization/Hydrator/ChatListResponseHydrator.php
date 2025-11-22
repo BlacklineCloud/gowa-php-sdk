@@ -38,7 +38,7 @@ final class ChatListResponseHydrator implements HydratorInterface
         );
     }
 
-    /** @param array<string,mixed> $data */
+    /** @param array<int|string,mixed> $data */
     private function pagination(array $data): Pagination
     {
         $r = new ArrayReader($data, '$.pagination');

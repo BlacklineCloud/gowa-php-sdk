@@ -28,23 +28,36 @@ final readonly class ClientConfig
         $this->guard();
     }
 
+    /**
+     * @param array{
+     *   baseUri?: string,
+     *   username?: string,
+     *   password?: string,
+     *   requestTimeoutMs?: int,
+     *   connectTimeoutMs?: int,
+     *   maxRetries?: int,
+     *   retryBackoffFactor?: float,
+     *   userAgent?: string|null,
+     *   basePath?: string|null,
+     *   clock?: ClockInterface|null,
+     *   uuid?: UuidGeneratorInterface|null
+     * } $overrides
+     */
     public function with(array $overrides): self
     {
-        $data = array_merge([
-            'baseUri' => $this->baseUri,
-            'username' => $this->username,
-            'password' => $this->password,
-            'requestTimeoutMs' => $this->requestTimeoutMs,
-            'connectTimeoutMs' => $this->connectTimeoutMs,
-            'maxRetries' => $this->maxRetries,
-            'retryBackoffFactor' => $this->retryBackoffFactor,
-            'userAgent' => $this->userAgent,
-            'basePath' => $this->basePath,
-            'clock' => $this->clock,
-            'uuid' => $this->uuid,
-        ], $overrides);
-
-        return new self(...$data);
+        return new self(
+            baseUri: $overrides['baseUri'] ?? $this->baseUri,
+            username: $overrides['username'] ?? $this->username,
+            password: $overrides['password'] ?? $this->password,
+            requestTimeoutMs: $overrides['requestTimeoutMs'] ?? $this->requestTimeoutMs,
+            connectTimeoutMs: $overrides['connectTimeoutMs'] ?? $this->connectTimeoutMs,
+            maxRetries: $overrides['maxRetries'] ?? $this->maxRetries,
+            retryBackoffFactor: $overrides['retryBackoffFactor'] ?? $this->retryBackoffFactor,
+            userAgent: array_key_exists('userAgent', $overrides) ? $overrides['userAgent'] : $this->userAgent,
+            basePath: array_key_exists('basePath', $overrides) ? $overrides['basePath'] : $this->basePath,
+            clock: $overrides['clock'] ?? $this->clock,
+            uuid: $overrides['uuid'] ?? $this->uuid,
+        );
     }
 
     private function guard(): void

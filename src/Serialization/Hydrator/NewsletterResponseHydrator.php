@@ -10,7 +10,7 @@ use BlacklineCloud\SDK\GowaPHP\Serialization\ArrayReader;
 
 final class NewsletterResponseHydrator implements HydratorInterface
 {
-    /** @param array<string,mixed> $payload */
+    /** @param array<int|string,mixed> $payload */
     public function hydrate(array $payload): NewsletterResponse
     {
         $r = new ArrayReader($payload);
@@ -58,7 +58,7 @@ final class NewsletterResponseHydrator implements HydratorInterface
         return $value === null ? null : (int) $value;
     }
 
-    /** @param array<string,mixed>|null $obj */
+    /** @param array<int|string,mixed>|null $obj */
     private function nestedUrl(?array $obj): ?string
     {
         if ($obj === null) {

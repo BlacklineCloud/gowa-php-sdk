@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Webhook;
 
-use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
 use BlacklineCloud\SDK\GowaPHP\Serialization\ArrayReader;
 use BlacklineCloud\SDK\GowaPHP\Webhook\Model\ContactPayload;
 use BlacklineCloud\SDK\GowaPHP\Webhook\Model\GroupParticipantsPayload;
@@ -34,10 +33,13 @@ final class WebhookEventHydrator
         // Receipts
         if (($payload['event'] ?? null) === 'message.ack') {
             $res     = new ArrayReader($reader->requireObject('payload'), '$.payload');
+            /** @var array<int|string,string> $idsRaw */
+            $idsRaw = $res->requireObject('ids');
+            $ids = array_values(array_map(static fn (string $id): string => $id, $idsRaw));
             $receipt = new ReceiptPayload(
                 chatId: $res->requireString('chat_id'),
                 from: $res->requireString('from'),
-                ids: $res->requireObject('ids'),
+                ids: $ids,
                 receiptType: $res->requireString('receipt_type'),
                 receiptTypeDescription: $res->requireString('receipt_type_description'),
                 senderId: $res->requireString('sender_id'),
@@ -49,25 +51,29 @@ final class WebhookEventHydrator
         // Group participant events
         if (($payload['event'] ?? null) === 'group.participants') {
             $res   = new ArrayReader($reader->requireObject('payload'), '$.payload');
+            /** @var array<int|string,string> $jidsRaw */
+            $jidsRaw = $res->requireObject('jids');
+            $jids = array_values(array_map(static fn (string $jid): string => $jid, $jidsRaw));
             $group = new GroupParticipantsPayload(
                 chatId: $res->requireString('chat_id'),
                 type: $res->requireString('type'),
-                jids: $res->requireObject('jids'),
+                jids: $jids,
             );
 
             return new WebhookEvent('group.participants', $context, groupParticipants: $group);
         }
 
         // Protocol actions
-        if (($payload['action'] ?? null) !== null) {
+        if (\is_string($payload['action'] ?? null)) {
+            $action = (string) $payload['action'];
             return new WebhookEvent(
-                type: (string) $payload['action'],
+                type: $action,
                 context: $context,
                 protocol: new ProtocolPayload(
-                    action: (string) $payload['action'],
-                    revokedMessageId: $payload['revoked_message_id'] ?? null,
-                    originalMessageId: $payload['original_message_id'] ?? null,
-                    editedText: $payload['edited_text'] ?? null,
+                    action: $action,
+                    revokedMessageId: isset($payload['revoked_message_id']) && \is_string($payload['revoked_message_id']) ? $payload['revoked_message_id'] : null,
+                    originalMessageId: isset($payload['original_message_id']) && \is_string($payload['original_message_id']) ? $payload['original_message_id'] : null,
+                    editedText: isset($payload['edited_text']) && \is_string($payload['edited_text']) ? $payload['edited_text'] : null,
                 ),
             );
         }
@@ -144,6 +150,7 @@ final class WebhookEventHydrator
         );
     }
 
+    /** @param array<string,mixed> $payload */
     private function maybeMedia(array $payload, string $key): ?MediaPayload
     {
         if (!isset($payload[$key])) {

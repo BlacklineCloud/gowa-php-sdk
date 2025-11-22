@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator;
 
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\Chat;
-use BlacklineCloud\SDK\GowaPHP\Domain\Dto\ChatList;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\ChatMessage;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\ChatMessages;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\ChatMessagesResponse;
@@ -48,7 +47,7 @@ final class ChatMessagesResponseHydrator implements HydratorInterface
         );
     }
 
-    /** @param array<string,mixed> $data */
+    /** @param array<int|string,mixed> $data */
     private function pagination(array $data): Pagination
     {
         $r = new ArrayReader($data, '$.pagination');

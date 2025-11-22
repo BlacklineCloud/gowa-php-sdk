@@ -51,6 +51,7 @@ final class SendClientTest extends TestCase
         $client->poll('jid@s.whatsapp.net', 'Choose', 'one', 'two');
 
         $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        self::assertIsArray($payload);
         self::assertSame(['one', 'two'], $payload['options']);
     }
 
@@ -71,6 +72,7 @@ final class SendClientTest extends TestCase
         $client->chatPresence('jid@s.whatsapp.net', \BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState::Composing);
 
         $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        self::assertIsArray($payload);
         self::assertSame('composing', $payload['presence']);
     }
 

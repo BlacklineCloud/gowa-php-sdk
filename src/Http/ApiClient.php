@@ -22,22 +22,31 @@ abstract class ApiClient
     ) {
     }
 
-    /** @param array<string,string> $headers */
+    /**
+     * @param array<string,int|string|bool> $query
+     * @param array<string,string> $headers
+     * @return array<string,mixed>
+     */
     protected function get(string $path, array $query = [], array $headers = []): array
     {
         return $this->send('GET', $path, $query, null, $headers);
     }
 
-    /** @param array<string,string> $headers */
+    /**
+     * @param array<string,mixed>|null $body
+     * @param array<string,string> $headers
+     * @return array<string,mixed>
+     */
     protected function post(string $path, ?array $body = null, array $headers = []): array
     {
         return $this->send('POST', $path, [], $body, $headers);
     }
 
     /**
-     * @param array<string,string> $query
+     * @param array<string,int|string|bool> $query
      * @param array<string,mixed>|null $body
      * @param array<string,string> $headers
+     * @return array<string,mixed>
      */
     private function send(string $method, string $path, array $query, ?array $body, array $headers): array
     {
@@ -73,14 +82,21 @@ abstract class ApiClient
         return $decoded;
     }
 
-    /** @param array<string,string> $query */
+    /** @param array<string,int|string|bool> $query */
     private function buildUri(string $path, array $query): string
     {
         $base = rtrim($this->config->baseUri, '/');
         $basePath = $this->config->basePath ? '/' . trim($this->config->basePath, '/') : '';
         $url = $base . $basePath . '/' . ltrim($path, '/');
         if ($query !== []) {
-            $url .= '?' . http_build_query($query);
+            $normalized = [];
+            foreach ($query as $key => $value) {
+                $normalized[$key] = match (true) {
+                    \is_bool($value) => $value ? 'true' : 'false',
+                    default => (string) $value,
+                };
+            }
+            $url .= '?' . http_build_query($normalized);
         }
 
         return $url;

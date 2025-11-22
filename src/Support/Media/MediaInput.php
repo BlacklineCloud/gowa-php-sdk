@@ -29,7 +29,10 @@ final readonly class MediaInput
         return new self($stream, $filename, $mimeType);
     }
 
-    public static function fromResource($resource, string $filename, string $mimeType, StreamFactoryInterface $factory): self
+    /**
+     * @param resource $resource
+     */
+    public static function fromResource(mixed $resource, string $filename, string $mimeType, StreamFactoryInterface $factory): self
     {
         if (!\is_resource($resource)) {
             throw new ValidationException('Expected stream resource');

@@ -9,7 +9,7 @@ use BlacklineCloud\SDK\GowaPHP\Support\NativeUuidGenerator;
 
 final class ClientConfigBuilder
 {
-    /** @param array<string,string> $input */
+    /** @param array<string,string|null> $input */
     public static function fromArray(array $input): ClientConfig
     {
         $baseUri = self::requireStringKey($input, 'base_uri');
@@ -47,7 +47,7 @@ final class ClientConfigBuilder
     }
 
     /**
-     * @param array<string,string> $input
+     * @param array<string,string|null> $input
      */
     private static function requireStringKey(array $input, string $key): string
     {

@@ -149,6 +149,7 @@ final class SendClient extends ApiClient
         ]));
     }
 
+    /** @param array<string,mixed> $payload */
     private function hydrate(array $payload): SendResponse
     {
         return $this->sendHydrator->hydrate($payload);
