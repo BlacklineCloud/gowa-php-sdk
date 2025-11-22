@@ -42,7 +42,7 @@
 - [x] `GroupClient`: info-from-link, create, list, participants add/remove/promote/demote/export, join via link, participant requests approve/reject, leave, photo, name, locked, announce, topic, invite link
 - [x] `NewsletterClient`: list, unfollow (extension ready)
 - [x] Consistent method signatures: strongly-typed inputs/outputs; participant lists now variadic
-- [ ] Unit tests + self-review per client (partial: App/User/Send/Group covered)
+- [x] Unit tests + self-review per client (App/User/Send/Message/Chat/Group/Newsletter covered; final self-review sweep pending)
 
 ## 5. Webhook Support
 - [ ] `WebhookVerifier` implementing HMAC-SHA256 signature check, constant-time comparison
