@@ -8,9 +8,20 @@ on:
 jobs:
   diff:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Run drift check
         run: |
           chmod +x bin/diff-openapi || true
           bin/diff-openapi
+      - name: Create issue on drift
+        if: failure()
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Upstream spec drift detected"
+          content-filepath: .github/templates/drift-issue.md
+          labels: documentation, upstream

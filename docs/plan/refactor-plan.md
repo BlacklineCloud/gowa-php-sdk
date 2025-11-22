@@ -28,7 +28,7 @@
   - [ ] Trim unused dev dependency (`nikic/php-parser`) or document its purpose. *(composer.json trimmed; lock refresh blocked offline — rerun `composer update --lock` when networked)*
   - [x] Add a client factory example to README to reduce manual wiring.
 - [ ] Upstream drift automation
-  - [ ] Enhance `bin/diff-openapi` + scheduled workflow to comment/open issue/PR on drift (using `peter-evans/create-issue-from-file` or similar).
+  - [x] Enhance `bin/diff-openapi` + scheduled workflow to comment/open issue/PR on drift (using `peter-evans/create-issue-from-file` or similar).
   - [ ] Document the drift response procedure in `CONTRIBUTING.md`.
 - [ ] Verification & release gating
   - [ ] Run `composer lint && composer stan && composer psalm && composer test` with coverage; ensure CI badge reflects status.
