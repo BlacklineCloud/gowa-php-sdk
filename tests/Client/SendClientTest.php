@@ -54,6 +54,26 @@ final class SendClientTest extends TestCase
         self::assertSame(['one', 'two'], $payload['options']);
     }
 
+    public function testChatPresence(): void
+    {
+        $psr17 = new Psr17Factory();
+        $body = json_encode([
+            'code' => 'SUCCESS',
+            'message' => 'Success',
+            'results' => [
+                'message_id' => 'presence',
+                'status' => 'sent',
+            ],
+        ], JSON_THROW_ON_ERROR);
+        $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
+        $client = $this->client($transport, $psr17);
+
+        $client->chatPresence('jid@s.whatsapp.net', \BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState::Composing);
+
+        $payload = json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        self::assertSame('composing', $payload['presence']);
+    }
+
     private function client(FakeTransport $transport, Psr17Factory $psr17): SendClient
     {
         return new SendClient(

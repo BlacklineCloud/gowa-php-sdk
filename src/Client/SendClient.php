@@ -7,6 +7,7 @@ namespace BlacklineCloud\SDK\GowaPHP\Client;
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Contracts\Http\HttpTransportInterface;
 use BlacklineCloud\SDK\GowaPHP\Domain\Dto\SendResponse;
+use BlacklineCloud\SDK\GowaPHP\Domain\Enum\PresenceState;
 use BlacklineCloud\SDK\GowaPHP\Http\ApiClient;
 use BlacklineCloud\SDK\GowaPHP\Serialization\Hydrator\SendResponseHydrator;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -81,6 +82,14 @@ final class SendClient extends ApiClient
         return $this->hydrate($this->post('/send/presence', [
             'jid' => $to,
             'presence' => $presence,
+        ]));
+    }
+
+    public function chatPresence(string $to, PresenceState $state): SendResponse
+    {
+        return $this->hydrate($this->post('/send/chat-presence', [
+            'jid' => $to,
+            'presence' => $state->value,
         ]));
     }
 
