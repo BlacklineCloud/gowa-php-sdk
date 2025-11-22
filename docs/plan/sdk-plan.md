@@ -54,7 +54,7 @@
 ## 6. Configuration & Extensibility
 - [x] Config builder from env/array with validation; sensible defaults (timeouts, base path)
 - [x] Pluggable middlewares: auth (Basic), tracing/logging, retry, circuit breaker placeholder
-- [ ] File/media upload strategy abstraction to support local file path, stream, PSR-7 stream
+- [x] File/media upload strategy abstraction to support local file path, stream, PSR-7 stream
 - [x] Clock & UUID providers injected for testability
 
 ## 7. Update Tracking & Upstream Sync
