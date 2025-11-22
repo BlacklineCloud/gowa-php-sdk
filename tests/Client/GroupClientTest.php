@@ -123,7 +123,8 @@ final class GroupClientTest extends TestCase
         $csvResult = $client->exportParticipants('120363347168689807@g.us');
 
         self::assertSame($csv, $csvResult);
-        self::assertSame('text/csv', $transport->lastRequest?->getHeaderLine('Accept'));
-        self::assertStringContainsString('/group/participants/export', (string) $transport->lastRequest?->getUri());
+        self::assertNotNull($transport->lastRequest);
+        self::assertSame('text/csv', $transport->lastRequest->getHeaderLine('Accept'));
+        self::assertStringContainsString('/group/participants/export', (string) $transport->lastRequest->getUri());
     }
 }

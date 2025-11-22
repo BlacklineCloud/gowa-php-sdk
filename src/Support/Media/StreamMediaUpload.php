@@ -10,7 +10,7 @@ final class StreamMediaUpload implements MediaUploadInterface
 {
     private string $path;
 
-    public function __construct(private readonly StreamInterface $stream, ?string $extension = null)
+    public function __construct(StreamInterface $stream, ?string $extension = null)
     {
         $tmp = tempnam(sys_get_temp_dir(), 'gowa_media_');
         if ($tmp === false) {

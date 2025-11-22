@@ -100,8 +100,9 @@ final class WebhookEventHydratorTest extends TestCase
 
         $event = (new WebhookEventHydrator())->hydrate($payload);
 
-        self::assertSame(1.23, $event->location?->latitude);
-        self::assertSame(45.67, $event->location?->longitude);
+        self::assertNotNull($event->location);
+        self::assertSame(1.23, $event->location->latitude);
+        self::assertSame(45.67, $event->location->longitude);
     }
 
     public function testRejectsInvalidTimestamp(): void

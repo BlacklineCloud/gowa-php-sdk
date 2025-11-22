@@ -13,6 +13,7 @@ final class GroupInfoResponseHydrator implements HydratorInterface
     public function hydrate(array $payload): GroupInfoResponse
     {
         $reader  = new ArrayReader($payload);
+        /** @var array<string,mixed> $results */
         $results = $reader->requireObject('results');
 
         return new GroupInfoResponse(

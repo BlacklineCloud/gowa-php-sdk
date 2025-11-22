@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Tests\Support\Media;
 
+use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
 use BlacklineCloud\SDK\GowaPHP\Support\Media\FileMediaUpload;
 use PHPUnit\Framework\TestCase;
-use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
 
 final class FileMediaUploadTest extends TestCase
 {

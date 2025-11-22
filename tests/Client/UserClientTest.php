@@ -87,8 +87,11 @@ final class UserClientTest extends TestCase
 
         $dto = $client->changePushName('New Name');
 
-        self::assertSame('https://api.example.test/user/pushname', (string) $transport->lastRequest?->getUri());
-        self::assertSame('New Name', json_decode((string) $transport->lastRequest?->getBody(), true, 512, JSON_THROW_ON_ERROR)['push_name'] ?? null);
+        self::assertNotNull($transport->lastRequest);
+        $payload = json_decode((string) $transport->lastRequest->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        self::assertIsArray($payload);
+        self::assertSame('https://api.example.test/user/pushname', (string) $transport->lastRequest->getUri());
+        self::assertSame('New Name', $payload['push_name'] ?? null);
         self::assertSame('SUCCESS', $dto->code);
     }
 }

@@ -6,28 +6,21 @@ namespace BlacklineCloud\SDK\GowaPHP\Tests\Http;
 
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Http\ClientFactory;
-use BlacklineCloud\SDK\GowaPHP\Tests\Support\FakeTransport;
+use BlacklineCloud\SDK\GowaPHP\Support\NativeUuidGenerator;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
-use Nyholm\Psr7Server\ServerRequestCreator;
-use Nyholm\Psr7Server\ServerRequestCreatorInterface;
-use Nyholm\Psr7\HttpClient\MockClient;
-use Nyholm\Psr7\Request;
-use Nyholm\Psr7\Stream;
-use Nyholm\Psr7\Uri;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\NullLogger;
-use BlacklineCloud\SDK\GowaPHP\Support\NativeUuidGenerator;
-use PHPUnit\Framework\TestCase;
 
 final class ClientFactoryTest extends TestCase
 {
     public function testCreatesSendClient(): void
     {
         $psr17     = new Psr17Factory();
-        $mockPsr18 = new class implements ClientInterface {
+        $mockPsr18 = new class () implements ClientInterface {
             public ?RequestInterface $lastRequest = null;
 
             public function sendRequest(RequestInterface $request): ResponseInterface

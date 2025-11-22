@@ -36,7 +36,7 @@ final class FileMediaUpload implements MediaUploadInterface
             throw new ValidationException('Unable to determine media file size: ' . $this->path);
         }
 
-        return (int) $size;
+        return $size;
     }
 
     public function mimeType(): ?string
@@ -45,9 +45,13 @@ final class FileMediaUpload implements MediaUploadInterface
         if ($finfo === false) {
             return null;
         }
-        $mime = finfo_file($finfo, $this->path) ?: null;
+        $mime = finfo_file($finfo, $this->path);
         finfo_close($finfo);
 
-        return $mime !== '' ? $mime : null;
+        if (!\is_string($mime) || $mime === '') {
+            return null;
+        }
+
+        return $mime;
     }
 }
