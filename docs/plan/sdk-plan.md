@@ -85,7 +85,7 @@
 - [x] Ongoing self-review: ensure SOLID, DRY, KISS, YAGNI, PSR compliance before each release
 
 ## Definition of Done
-- [x] All plan tasks completed
-- [x] Self-review checklist satisfied for every component
-- [x] CI green (lint, static analysis, tests, coverage) *coverage driver warning locally; enforced via threshold*
-- [x] Docs updated (README + API + changelog)
+- [ ] All plan tasks completed *(see refactor-plan.md for remaining gaps)*
+- [ ] Self-review checklist satisfied for every component *(pending media abstraction rollout + drift automation)*
+- [ ] CI green (lint, static analysis, tests, coverage) *(coverage driver warning locally; ensure in CI)*
+- [ ] Docs updated (README + API + changelog) *(README wiring improvements pending)*

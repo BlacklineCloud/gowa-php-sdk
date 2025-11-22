@@ -23,9 +23,9 @@
   - [x] Wire send media endpoints to accept the abstraction (preserve BC by accepting string paths).
   - [x] Add validation for file existence/size and MIME hints; cover with unit tests.
 - [ ] Documentation & changelog correctness
-  - [ ] Update `CHANGELOG.md` to reflect current feature set and pending work.
+  - [x] Update `CHANGELOG.md` to reflect current feature set and pending work.
   - [ ] Reconcile `docs/plan/sdk-plan.md` DoD/checkboxes with actual status or add a note linking to this hardening plan.
-  - [ ] Trim unused dev dependency (`nikic/php-parser`) or document its purpose.
+  - [ ] Trim unused dev dependency (`nikic/php-parser`) or document its purpose. *(blocked: offline composer update; currently kept in composer.json)*
   - [ ] Add a client factory example to README to reduce manual wiring.
 - [ ] Upstream drift automation
   - [ ] Enhance `bin/diff-openapi` + scheduled workflow to comment/open issue/PR on drift (using `peter-evans/create-issue-from-file` or similar).
