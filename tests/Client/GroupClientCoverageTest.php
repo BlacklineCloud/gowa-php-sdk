@@ -27,7 +27,7 @@ final class GroupClientCoverageTest extends TestCase
 
     protected function setUp(): void
     {
-        $psr17 = new Psr17Factory();
+        $psr17  = new Psr17Factory();
         $config = new ClientConfig('https://api.example.test', 'u', 'p');
 
         $responses = [
@@ -49,12 +49,12 @@ final class GroupClientCoverageTest extends TestCase
                     'name'         => 'Group',
                     'participants' => [
                         [
-                            'jid'           => '120@s.whatsapp.net',
-                            'phone_number'  => '120',
-                            'lid'           => null,
-                            'display_name'  => 'Member',
-                            'is_admin'      => false,
-                            'is_super_admin'=> false,
+                            'jid'            => '120@s.whatsapp.net',
+                            'phone_number'   => '120',
+                            'lid'            => null,
+                            'display_name'   => 'Member',
+                            'is_admin'       => false,
+                            'is_super_admin' => false,
                         ],
                     ],
                 ],

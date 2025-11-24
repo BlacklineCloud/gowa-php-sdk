@@ -97,7 +97,7 @@ final class UserClientTest extends TestCase
 
     public function testOtherUserEndpoints(): void
     {
-        $psr17 = new Psr17Factory();
+        $psr17     = new Psr17Factory();
         $responses = [
             // avatar
             new Response(200, ['Content-Type' => 'application/json'], json_encode([
@@ -138,8 +138,8 @@ final class UserClientTest extends TestCase
                 'message' => 'check',
                 'results' => [
                     'is_on_whatsapp' => 1,
-                    'exists' => true,
-                    'jid'    => '628222@s.whatsapp.net',
+                    'exists'         => true,
+                    'jid'            => '628222@s.whatsapp.net',
                 ],
             ], JSON_THROW_ON_ERROR)),
         ];

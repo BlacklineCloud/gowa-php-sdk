@@ -28,7 +28,7 @@ final class FakeTransport implements HttpTransportInterface
             throw new \RuntimeException('No fake response available');
         }
 
-        $response = array_shift($this->responses);
+        $response          = array_shift($this->responses);
         $this->responses[] = $response; // rotate to allow re-use if calls exceed provided list
 
         return $response;

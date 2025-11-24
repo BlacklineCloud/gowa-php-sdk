@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BlacklineCloud\SDK\GowaPHP\Tests\Serialization;
 
-use BlacklineCloud\SDK\GowaPHP\Serialization\ArrayReader;
 use BlacklineCloud\SDK\GowaPHP\Exception\ValidationException;
+use BlacklineCloud\SDK\GowaPHP\Serialization\ArrayReader;
 use PHPUnit\Framework\TestCase;
 
 final class ArrayReaderTest extends TestCase

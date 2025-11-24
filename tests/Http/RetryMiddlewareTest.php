@@ -6,8 +6,8 @@ namespace BlacklineCloud\SDK\GowaPHP\Tests\Http;
 
 use BlacklineCloud\SDK\GowaPHP\Config\ClientConfig;
 use BlacklineCloud\SDK\GowaPHP\Http\Middleware\RetryMiddleware;
-use Nyholm\Psr7\Response;
 use Nyholm\Psr7\Request;
+use Nyholm\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 final class RetryMiddlewareTest extends TestCase
@@ -19,7 +19,7 @@ final class RetryMiddlewareTest extends TestCase
         $request    = new Request('GET', 'https://api.example.test');
 
         $callCount = 0;
-        $next = function () use (&$callCount) {
+        $next      = function () use (&$callCount) {
             $callCount++;
             if ($callCount === 1) {
                 return new Response(500);
@@ -41,7 +41,7 @@ final class RetryMiddlewareTest extends TestCase
         $request    = new Request('GET', 'https://api.example.test');
 
         $callCount = 0;
-        $next = function () use (&$callCount) {
+        $next      = function () use (&$callCount) {
             $callCount++;
             if ($callCount === 1) {
                 throw new \BlacklineCloud\SDK\GowaPHP\Exception\RateLimitException(retryAfterSeconds: 1);

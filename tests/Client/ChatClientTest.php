@@ -61,7 +61,7 @@ final class ChatClientTest extends TestCase
 
     public function testMessagesAndActions(): void
     {
-        $psr17 = new Psr17Factory();
+        $psr17     = new Psr17Factory();
         $responses = [
             new Response(200, ['Content-Type' => 'application/json'], json_encode([
                 'code'    => 'SUCCESS',
@@ -73,8 +73,8 @@ final class ChatClientTest extends TestCase
                         'last_message_time'    => '2024-01-15T10:30:00Z',
                         'ephemeral_expiration' => 0,
                     ],
-                    'messages' => [],
-                    'data'      => [],
+                    'messages'   => [],
+                    'data'       => [],
                     'pagination' => [
                         'limit'  => 50,
                         'offset' => 0,
@@ -87,20 +87,20 @@ final class ChatClientTest extends TestCase
                 'message' => 'label',
                 'results' => [
                     'chat_jid' => '628111111111@s.whatsapp.net',
-                    'status' => 'ok',
+                    'status'   => 'ok',
                     'label_id' => 'label-id',
-                    'labeled' => true,
-                    'message' => 'labeled',
+                    'labeled'  => true,
+                    'message'  => 'labeled',
                 ],
             ], JSON_THROW_ON_ERROR)),
             new Response(200, ['Content-Type' => 'application/json'], json_encode([
                 'code'    => 'SUCCESS',
                 'message' => 'pin',
                 'results' => [
-                    'status' => 'ok',
-                    'message' => 'pinned',
+                    'status'   => 'ok',
+                    'message'  => 'pinned',
                     'chat_jid' => '628111111111@s.whatsapp.net',
-                    'pinned' => true,
+                    'pinned'   => true,
                 ],
             ], JSON_THROW_ON_ERROR)),
         ];
