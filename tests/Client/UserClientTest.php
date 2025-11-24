@@ -94,4 +94,78 @@ final class UserClientTest extends TestCase
         self::assertSame('New Name', $payload['push_name'] ?? null);
         self::assertSame('SUCCESS', $dto->code);
     }
+
+    public function testOtherUserEndpoints(): void
+    {
+        $psr17 = new Psr17Factory();
+        $responses = [
+            // avatar
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'avatar',
+                'results' => [
+                    'avatar' => 'http://avatar',
+                ],
+            ], JSON_THROW_ON_ERROR)),
+            // privacy
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'privacy',
+                'results' => [
+                    'last_seen' => 'all',
+                ],
+            ], JSON_THROW_ON_ERROR)),
+            // contacts
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'contacts',
+                'results' => [
+                    'data' => [],
+                ],
+            ], JSON_THROW_ON_ERROR)),
+            // business profile
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'business',
+                'results' => [
+                    'name'        => 'Biz',
+                    'description' => 'Desc',
+                ],
+            ], JSON_THROW_ON_ERROR)),
+            // check
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'check',
+                'results' => [
+                    'is_on_whatsapp' => 1,
+                    'exists' => true,
+                    'jid'    => '628222@s.whatsapp.net',
+                ],
+            ], JSON_THROW_ON_ERROR)),
+        ];
+        $transport = new FakeTransport($responses);
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
+
+        $client = new UserClient(
+            $config,
+            $transport,
+            $psr17,
+            $psr17,
+            new UserInfoResponseHydrator(),
+            new AvatarResponseHydrator(),
+            new PrivacyResponseHydrator(),
+            new MyContactsResponseHydrator(),
+            new BusinessProfileResponseHydrator(),
+            new UserCheckResponseHydrator(),
+            new GenericResponseHydrator(),
+        );
+
+        $client->avatar('628111111111@s.whatsapp.net');
+        $client->privacy();
+        $client->myContacts();
+        $client->businessProfile('628111111111@s.whatsapp.net');
+        $client->check('628111');
+
+        self::assertNotNull($transport->lastRequest);
+    }
 }

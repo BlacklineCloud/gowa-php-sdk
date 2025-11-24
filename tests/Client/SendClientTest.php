@@ -78,6 +78,32 @@ final class SendClientTest extends TestCase
         self::assertSame('composing', $payload['presence']);
     }
 
+    public function testAllSendVariants(): void
+    {
+        $psr17 = new Psr17Factory();
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
+            'message' => 'Success',
+            'results' => [
+                'message_id' => 'any',
+                'status'     => 'sent',
+            ],
+        ], JSON_THROW_ON_ERROR);
+        $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
+        $client    = $this->client($transport, $psr17);
+
+        $client->link('628111111111@s.whatsapp.net', 'https://example.com', 'caption');
+        $client->location('628111111111@s.whatsapp.net', 1.23, 4.56, 'place', 'addr');
+        $client->contact('628111111111@s.whatsapp.net', 'Bob', '628222222222');
+        $client->presence('628111111111@s.whatsapp.net', 'available');
+        $client->audio('628111111111@s.whatsapp.net', '/tmp/audio.mp3');
+        $client->file('628111111111@s.whatsapp.net', '/tmp/file.pdf');
+        $client->sticker('628111111111@s.whatsapp.net', '/tmp/sticker.webp');
+        $client->video('628111111111@s.whatsapp.net', '/tmp/video.mp4');
+
+        self::assertNotNull($transport->lastRequest);
+    }
+
     public function testSendImageWithStreamUpload(): void
     {
         $psr17 = new Psr17Factory();

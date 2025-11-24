@@ -12,13 +12,25 @@ final class FakeTransport implements HttpTransportInterface
 {
     public ?RequestInterface $lastRequest = null;
 
-    public function __construct(private readonly ResponseInterface $response)
+    /** @var list<ResponseInterface> */
+    private array $responses;
+
+    public function __construct(ResponseInterface|array $response)
     {
+        $this->responses = \is_array($response) ? array_values($response) : [$response];
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         $this->lastRequest = $request;
-        return $this->response;
+
+        if ($this->responses === []) {
+            throw new \RuntimeException('No fake response available');
+        }
+
+        $response = array_shift($this->responses);
+        $this->responses[] = $response; // rotate to allow re-use if calls exceed provided list
+
+        return $response;
     }
 }

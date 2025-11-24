@@ -51,6 +51,27 @@ final class Psr18TransportTest extends TestCase
         $transport->sendRequest($this->dummyRequest());
     }
 
+    public function testSuccessPassThrough(): void
+    {
+        $client    = $this->mockClient(200);
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
+        $transport = new Psr18Transport($client, $config, new NullLogger());
+
+        $response = $transport->sendRequest($this->dummyRequest());
+
+        self::assertSame(200, $response->getStatusCode());
+    }
+
+    public function testServerErrorThrows(): void
+    {
+        $client    = $this->mockClient(500);
+        $config    = new ClientConfig('https://api.example.test', 'u', 'p');
+        $transport = new Psr18Transport($client, $config, new NullLogger());
+
+        $this->expectException(\BlacklineCloud\SDK\GowaPHP\Exception\ServerException::class);
+        $transport->sendRequest($this->dummyRequest());
+    }
+
     private function mockClient(int $status): ClientInterface
     {
         return new class ($status) implements ClientInterface {

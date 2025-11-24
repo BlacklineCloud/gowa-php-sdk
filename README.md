@@ -82,7 +82,7 @@ CI enforces >= 90% coverage via `bin/check-coverage` (see `composer coverage`). 
 
 ```bash
 docker compose -f docker-compose.dev.yml build
-# Run full suite with coverage
+# Run full suite with coverage (make sure Xdebug is active)
 docker compose -f docker-compose.dev.yml run --rm php composer test -- --coverage-clover=build/logs/clover.xml
 docker compose -f docker-compose.dev.yml run --rm php composer coverage
 ```

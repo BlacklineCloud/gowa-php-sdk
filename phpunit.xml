@@ -9,12 +9,24 @@
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory>src</directory>
-        </include>
+    <coverage>
         <report>
             <clover outputFile="build/logs/clover.xml"/>
         </report>
     </coverage>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+        <exclude>
+            <directory>src/Domain/Dto</directory>
+            <directory>src/Domain/Enum</directory>
+            <directory>src/Domain/Value</directory>
+            <directory>src/Exception</directory>
+            <directory>src/Contracts</directory>
+            <directory>src/Webhook/Model</directory>
+            <file>src/Support/NoopCircuitBreaker.php</file>
+            <file>src/Support/SystemClock.php</file>
+        </exclude>
+    </source>
 </phpunit>

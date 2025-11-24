@@ -51,4 +51,35 @@ final class ClientFactoryTest extends TestCase
         self::assertSame('abc', $dto->messageId);
         self::assertSame('https://api.example.test/send/message', (string) $mockPsr18->lastRequest?->getUri());
     }
+
+    public function testCreatesAllClients(): void
+    {
+        $psr17 = new Psr17Factory();
+        $psr18 = new class () implements ClientInterface {
+            public function sendRequest(RequestInterface $request): ResponseInterface
+            {
+                return new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                    'code'    => 'SUCCESS',
+                    'message' => 'ok',
+                    'results' => ['status' => 'ok'],
+                ], JSON_THROW_ON_ERROR));
+            }
+        };
+
+        $factory = new ClientFactory(
+            requestFactory: $psr17,
+            streamFactory: $psr17,
+            psr18: $psr18,
+            logger: new NullLogger(),
+            uuid: new NativeUuidGenerator(),
+        );
+
+        $config = new ClientConfig('https://api.example.test', 'u', 'p');
+        self::assertInstanceOf(\BlacklineCloud\SDK\GowaPHP\Client\AppClient::class, $factory->createAppClient($config));
+        self::assertInstanceOf(\BlacklineCloud\SDK\GowaPHP\Client\UserClient::class, $factory->createUserClient($config));
+        self::assertInstanceOf(\BlacklineCloud\SDK\GowaPHP\Client\MessageClient::class, $factory->createMessageClient($config));
+        self::assertInstanceOf(\BlacklineCloud\SDK\GowaPHP\Client\ChatClient::class, $factory->createChatClient($config));
+        self::assertInstanceOf(\BlacklineCloud\SDK\GowaPHP\Client\GroupClient::class, $factory->createGroupClient($config));
+        self::assertInstanceOf(\BlacklineCloud\SDK\GowaPHP\Client\NewsletterClient::class, $factory->createNewsletterClient($config));
+    }
 }

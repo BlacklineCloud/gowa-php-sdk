@@ -50,4 +50,27 @@ final class NewsletterClientTest extends TestCase
         self::assertSame('nid', $dto->newsletters[0]->id);
         self::assertSame('https://api.example.test/user/my/newsletters', (string) $transport->lastRequest?->getUri());
     }
+
+    public function testUnfollow(): void
+    {
+        $psr17 = new Psr17Factory();
+        $body  = json_encode([
+            'code'    => 'SUCCESS',
+            'message' => 'unfollow',
+            'results' => null,
+        ], JSON_THROW_ON_ERROR);
+        $transport = new FakeTransport(new Response(200, ['Content-Type' => 'application/json'], $body));
+        $client    = new NewsletterClient(
+            new ClientConfig('https://api.example.test', 'u', 'p'),
+            $transport,
+            $psr17,
+            $psr17,
+            new NewsletterResponseHydrator(),
+            new GenericResponseHydrator(),
+        );
+
+        $client->unfollow('nid');
+
+        self::assertStringContainsString('/newsletter/unfollow', (string) $transport->lastRequest?->getUri());
+    }
 }

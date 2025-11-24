@@ -58,4 +58,68 @@ final class ChatClientTest extends TestCase
         self::assertSame('Chat', $dto->results->data[0]->name);
         self::assertSame('https://api.example.test/chats?limit=25&offset=0&has_media=false', (string) $transport->lastRequest?->getUri());
     }
+
+    public function testMessagesAndActions(): void
+    {
+        $psr17 = new Psr17Factory();
+        $responses = [
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'messages',
+                'results' => [
+                    'chat_info' => [
+                        'jid'                  => '628111111111@s.whatsapp.net',
+                        'name'                 => 'Chat',
+                        'last_message_time'    => '2024-01-15T10:30:00Z',
+                        'ephemeral_expiration' => 0,
+                    ],
+                    'messages' => [],
+                    'data'      => [],
+                    'pagination' => [
+                        'limit'  => 50,
+                        'offset' => 0,
+                        'total'  => 0,
+                    ],
+                ],
+            ], JSON_THROW_ON_ERROR)),
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'label',
+                'results' => [
+                    'chat_jid' => '628111111111@s.whatsapp.net',
+                    'status' => 'ok',
+                    'label_id' => 'label-id',
+                    'labeled' => true,
+                    'message' => 'labeled',
+                ],
+            ], JSON_THROW_ON_ERROR)),
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'code'    => 'SUCCESS',
+                'message' => 'pin',
+                'results' => [
+                    'status' => 'ok',
+                    'message' => 'pinned',
+                    'chat_jid' => '628111111111@s.whatsapp.net',
+                    'pinned' => true,
+                ],
+            ], JSON_THROW_ON_ERROR)),
+        ];
+        $transport = new FakeTransport($responses);
+        $client    = new ChatClient(
+            new ClientConfig('https://api.example.test', 'u', 'p'),
+            $transport,
+            $psr17,
+            $psr17,
+            new ChatListResponseHydrator(),
+            new ChatMessagesResponseHydrator(),
+            new LabelChatResponseHydrator(),
+            new PinChatResponseHydrator(),
+        );
+
+        $client->messages('628111111111@s.whatsapp.net');
+        $client->label('628111111111@s.whatsapp.net', 'label-id');
+        $client->pin('628111111111@s.whatsapp.net', true);
+
+        self::assertNotNull($transport->lastRequest);
+    }
 }
