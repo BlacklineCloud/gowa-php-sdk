@@ -2,7 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [Unreleased]
+- Nothing yet.
+
+## [1.0.0] - 2025-11-24
 ### Added
 - PSR-18 transport pipeline with auth, correlation ID, idempotency, retry, and optional circuit breaker middleware.
 - Immutable `ClientConfig` with env/array builder; UUID and clock abstractions.

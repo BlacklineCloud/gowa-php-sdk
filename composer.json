@@ -1,9 +1,28 @@
 {
   "name": "blacklinecloud/gowa-php-sdk",
   "description": "Type-safe PHP SDK for Go WhatsApp Web MultiDevice (REST & webhooks)",
+  "keywords": [
+    "whatsapp",
+    "sdk",
+    "gowa",
+    "psr",
+    "webhook",
+    "api-client",
+    "php"
+  ],
   "type": "library",
   "license": "MIT",
   "homepage": "https://github.com/blacklinecloud/gowa-php-sdk",
+  "authors": [
+    {
+      "name": "BlacklineCloud"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/blacklinecloud/gowa-php-sdk/issues",
+    "source": "https://github.com/blacklinecloud/gowa-php-sdk",
+    "docs": "https://github.com/blacklinecloud/gowa-php-sdk/tree/master/docs"
+  },
   "require": {
     "php": ">=8.2",
     "psr/http-client": "^1.0",

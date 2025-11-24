@@ -1,6 +1,6 @@
 # Gowa PHP SDK
 
-[![coverage >= 90%](https://img.shields.io/badge/coverage-%E2%89%A5%2090%25-blue)](#coverage)
+[![Packagist](https://img.shields.io/packagist/v/blacklinecloud/gowa-php-sdk)](https://packagist.org/packages/blacklinecloud/gowa-php-sdk) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![coverage >= 90%](https://img.shields.io/badge/coverage-%E2%89%A5%2090%25-blue)](#coverage)
 
 Typed, PSR-compliant PHP SDK for [Go WhatsApp Web MultiDevice](https://github.com/aldinokemal/go-whatsapp-web-multidevice). Root namespace: `BlacklineCloud\SDK\GowaPHP`.
 
@@ -73,6 +73,19 @@ PHP 8.2+ (tested on 8.2/8.3/8.4).
 - Use constructor injection; keep public APIs typed (no arrays in signatures).
 - Run tests and static analysis: `composer lint && composer stan && composer psalm && composer test`.
 - See `CONTRIBUTING.md` for the self-review checklist and upgrade workflow.
+
+## Releases
+
+- Semantic versioning. Tags matching `v*` run CI, create a GitHub Release, and (optionally) ping Packagist if credentials are configured.
+- See `RELEASING.md` for the exact checklist.
+
+## Security
+
+Please email security@blackline.cloud and do not open public issues for vulnerabilities. See `SECURITY.md`.
+
+## License
+
+MIT. See `LICENSE` for details.
 
 ## Coverage
 
